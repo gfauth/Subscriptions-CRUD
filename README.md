@@ -1,1 +1,1 @@
-# Subscriptions-CRUD
+# Notifier Observer API
