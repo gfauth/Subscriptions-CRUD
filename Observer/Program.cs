@@ -1,8 +1,8 @@
 using Microsoft.OpenApi.Models;
 using Observer.Constants;
-using Observer.Data;
 using Observer.Data.Context;
 using Observer.Data.Interfaces;
+using Observer.Data.Repositories;
 using Observer.Domain.Interfaces;
 using Observer.Domain.Services;
 using Observer.Presentation.Logs;

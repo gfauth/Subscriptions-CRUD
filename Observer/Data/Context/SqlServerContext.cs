@@ -16,7 +16,7 @@ namespace Observer.Data.Context
         /// <summary>
         /// Context SQL Server constructor.
         /// </summary>
-        /// <param name="connectionString">ConnectionString to close connection with database</param>
+        /// <param name="configuration">Object IConfiguration</param>
         public SqlServerContext(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("SqlServer")!;

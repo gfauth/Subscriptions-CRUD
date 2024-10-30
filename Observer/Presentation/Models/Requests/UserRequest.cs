@@ -20,7 +20,7 @@ namespace Observer.Presentation.Models.Requests
         /// <param name="Document"></param>
         /// <param name="Login"></param>
         /// <param name="Password"></param>
-        public UserRequest(string Name, string LastName, DateTime Birthdate, string Document, string Login, string Password)
+        public UserRequest([Required] string Name, [Required] string LastName, [Required] DateTime Birthdate, string Document, [Required] string Login, [Required] string Password)
         {
             this.Name = Name;
             this.LastName = LastName;
@@ -34,21 +34,18 @@ namespace Observer.Presentation.Models.Requests
         /// User first name.
         /// </summary>
         /// <example>Jhon</example>
-        [Required]
         public string Name { get; }
 
         /// <summary>
         /// User last name.
         /// </summary>
         /// <example>Blevers</example>
-        [Required]
         public string LastName { get; }
 
         /// <summary>
         /// User birthdate.
         /// </summary>
         /// <example>2000-05-12</example>
-        [Required]
         public DateTime Birthdate { get; }
 
         /// <summary>
@@ -61,14 +58,12 @@ namespace Observer.Presentation.Models.Requests
         /// User login.
         /// </summary>
         /// <example>mycustomlogin</example>
-        [Required]
         public string Login { get; }
-
+        
         /// <summary>
         /// User password.
         /// </summary>
         /// <example>123!@Best</example>
-        [Required]
         public string Password { get; }
 
         /// <summary>

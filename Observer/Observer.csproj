@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <None Remove="Data\ProductRepository.cs~RF1cde230.TMP" />
+    <None Remove="Domain\Services\SubscriptionServices.cs~RFc2bcd8.TMP" />
     <None Remove="Observer.http" />
   </ItemGroup>
 
@@ -21,13 +22,13 @@
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Polly" Version="8.4.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Notification\Interfaces\" />
     <Folder Include="Presentation\Interfaces\" />
-    <Folder Include="Settings\" />
   </ItemGroup>
 
   <ItemGroup>

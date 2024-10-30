@@ -9,6 +9,6 @@ namespace Observer.Data.Interfaces
         Task<IResponse<Subscriptions>> SelectOneSubscription(int subscriptionId);
         Task<IResponse<bool>> UpdateSubscription(Subscriptions subscriptionData);
         Task<IResponse<bool>> DeleteSubscription(int subscriptionId);
-        Task<IResponse<List<Subscriptions>>> SelectAllSubscription(int subscriptionId);
+        Task<IResponse<List<Subscriptions>>> SelectAllSubscription();
     }
 }

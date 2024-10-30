@@ -85,7 +85,7 @@ set
     Birthdate = @Birthdate,
     UpdatedAt = getdate()
 where
-    id = @Id";
+    id = @userId";
 
         /// <summary>
         /// Delete some user by id.
@@ -166,7 +166,7 @@ set
     Stock = @Stock,
     UpdatedAt = getdate()
 where
-    id = @Id";
+    id = @productId";
 
         /// <summary>
         /// Delete some product by id.
