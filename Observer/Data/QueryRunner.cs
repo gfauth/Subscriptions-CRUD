@@ -10,13 +10,13 @@ namespace Observer.Data
 {
     public sealed class QueryRunner<T>
     {
-        public static async Task<IResponse<T>> ExecuteQuerySingleTAsync(ISingleLog<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object parameters)
+        public static async Task<IResponse<T>> ExecuteQuerySingleTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object parameters)
         {
             var baseLog = await singleLog.GetBaseLogAsync();
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(logStep, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -37,19 +37,19 @@ namespace Observer.Data
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await sqlServerContext.DisposeAsync();
             }
         }
      
-        public static async Task<IResponse<List<T>>> ExecuteQueryListTAsync(ISingleLog<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object parameters)
+        public static async Task<IResponse<List<T>>> ExecuteQueryListTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object parameters)
         {
             var baseLog = await singleLog.GetBaseLogAsync();
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(logStep, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -70,7 +70,7 @@ namespace Observer.Data
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await sqlServerContext.DisposeAsync();
             }

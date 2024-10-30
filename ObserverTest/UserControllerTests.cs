@@ -17,7 +17,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             // Act
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
@@ -31,7 +31,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             // Act and Assert
             Assert.Throws<ArgumentNullException>(() => new UserController(null!, singleLogMock.Object));
@@ -42,7 +42,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             // Act and Assert
             Assert.Throws<ArgumentNullException>(() => new UserController(userServiceMock.Object, null!));
@@ -53,7 +53,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             var userRequest = FakeData.UsefulUserRequest();
 
@@ -80,7 +80,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             var userRequest = FakeData.PasswordUserRequest();
 
@@ -110,7 +110,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             var userRequest = FakeData.LoginUserRequest();
 
@@ -140,7 +140,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             var userRequest = FakeData.BurthdateUserRequest();
 
@@ -170,7 +170,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             var userRequest = FakeData.LastNameUserRequest();
 
@@ -200,7 +200,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             var userRequest = FakeData.NameUserRequest();
 
@@ -231,7 +231,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             userServiceMock.Setup(mock => mock.RetrieveUser(It.IsAny<int>()))
                 .ReturnsAsync(FakeData.SuccessRetrieveUserResponse(FakeData.UsefulUserRequest()));
@@ -258,7 +258,7 @@ namespace ObserverTest
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingleLog<LogModel>>();
+            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             singleLogMock.Setup(mock => mock.CreateBaseLogAsync()).ReturnsAsync(new LogModel());
             singleLogMock.Setup(mock => mock.GetBaseLogAsync()).ReturnsAsync(new LogModel());

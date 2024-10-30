@@ -2,7 +2,7 @@
 
 namespace Observer.Presentation.Logs
 {
-    public class LogModel : BaseLogStep
+    public class LogModel : BaseLogObject
     {
     }
 }

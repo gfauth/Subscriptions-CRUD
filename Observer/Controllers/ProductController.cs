@@ -23,14 +23,14 @@ namespace Observer.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductServices _productServices;
-        private readonly ISingleLog<LogModel> _singleLog;
+        private readonly ISingletonLogger<LogModel> _singleLog;
 
         /// <summary>
         /// General constructor.
         /// </summary>
         /// <param name="productServices">Service class based on IProductServices.</param>
         /// <param name="singleLog">Service class of log based on ISingleLog.</param>
-        public ProductController(IProductServices productServices, ISingleLog<LogModel> singleLog)
+        public ProductController(IProductServices productServices, ISingletonLogger<LogModel> singleLog)
         {
             _productServices = productServices ?? throw new ArgumentNullException(nameof(productServices));
             _singleLog = singleLog ?? throw new ArgumentNullException(nameof(singleLog));
@@ -53,7 +53,7 @@ namespace Observer.Controllers
 
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.GET_PRODUCT_BY_ID, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -93,7 +93,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }
@@ -118,7 +118,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.CREATE_NEW_PRODUCT, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -159,7 +159,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }
@@ -184,7 +184,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.EDIT_PRODUCT_BY_ID, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -234,7 +234,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }
@@ -258,7 +258,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.DELETE_PRODUCT_BY_ID, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -298,7 +298,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }

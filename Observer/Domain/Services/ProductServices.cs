@@ -16,7 +16,7 @@ namespace Observer.Domain.Services
 {
     public class ProductServices : IProductServices
     {
-        private readonly ISingleLog<LogModel> _singleLog;
+        private readonly ISingletonLogger<LogModel> _singleLog;
         private readonly IProductRepository _productRepository;
         private readonly MapperConfiguration _mapperConfiguration;
 
@@ -25,7 +25,7 @@ namespace Observer.Domain.Services
         /// </summary>
         /// <param name="productRepository">Service class of repository based on IProductRepository.</param>
         /// <param name="singleLog">Service class of log based on ISingleLog.</param>
-        public ProductServices(IProductRepository productRepository, ISingleLog<LogModel> singleLog)
+        public ProductServices(IProductRepository productRepository, ISingletonLogger<LogModel> singleLog)
         {
             _productRepository = productRepository;
             _singleLog = singleLog;
@@ -39,7 +39,7 @@ namespace Observer.Domain.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_CREATE_PRODUCT_PROCESSING, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -57,7 +57,7 @@ namespace Observer.Domain.Services
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
             }
         }
 
@@ -67,7 +67,7 @@ namespace Observer.Domain.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_RETRIEVE_PRODUCT_PROCESSING, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -83,7 +83,7 @@ namespace Observer.Domain.Services
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
             }
         }
 
@@ -93,7 +93,7 @@ namespace Observer.Domain.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_DELETE_PRODUCT_PROCESSING, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -106,7 +106,7 @@ namespace Observer.Domain.Services
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
             }
         }
 
@@ -116,7 +116,7 @@ namespace Observer.Domain.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_UPDATE_PRODUCT_PROCESSING, sublog);
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -134,7 +134,7 @@ namespace Observer.Domain.Services
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
             }
         }
     }

@@ -20,14 +20,14 @@ namespace Observer.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserServices _userServices;
-        private readonly ISingleLog<LogModel> _singleLog;
+        private readonly ISingletonLogger<LogModel> _singleLog;
 
         /// <summary>
         /// General constructor.
         /// </summary>
         /// <param name="userServices">Service class based on IUserServices.</param>
         /// <param name="singleLog">Service class of log based on ISingleLog.</param>
-        public UserController(IUserServices userServices, ISingleLog<LogModel> singleLog)
+        public UserController(IUserServices userServices, ISingletonLogger<LogModel> singleLog)
         {
             _userServices = userServices ?? throw new ArgumentNullException(nameof(userServices));
             _singleLog = singleLog ?? throw new ArgumentNullException(nameof(singleLog));
@@ -51,7 +51,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.GET_USER_BY_ID, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -91,7 +91,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }
@@ -116,7 +116,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.CREATE_NEW_USER, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -157,7 +157,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }
@@ -182,7 +182,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.EDIT_USER_BY_ID, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -232,7 +232,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }
@@ -256,7 +256,7 @@ namespace Observer.Controllers
             var sublog = new SubLog();
             await baseLog.AddStepAsync(LogSteps.DELETE_USER_BY_ID, sublog);
 
-            sublog.StopwatchStart();
+            sublog.StartCronometer();
 
             try
             {
@@ -296,7 +296,7 @@ namespace Observer.Controllers
             }
             finally
             {
-                sublog.StopwatchStop();
+                sublog.StopCronometer();
 
                 await _singleLog.WriteLogAsync(baseLog);
             }

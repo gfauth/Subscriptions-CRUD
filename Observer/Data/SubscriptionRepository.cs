@@ -13,14 +13,14 @@ namespace Observer.Data
     public class SubscriptionRepository : ISubscriptionRepository
     {
         private readonly ISqlServerContext _sqlServerContext;
-        private readonly ISingleLog<LogModel> _singleLog;
+        private readonly ISingletonLogger<LogModel> _singleLog;
 
         /// <summary>
         /// Repository constructor.
         /// </summary>
         /// <param name="sqlServerContext">Object ISqlServerContext.</param>
         /// <param name="singleLog">Object ISingleLog.</param>
-        public SubscriptionRepository(ISqlServerContext sqlServerContext, ISingleLog<LogModel> singleLog)
+        public SubscriptionRepository(ISqlServerContext sqlServerContext, ISingletonLogger<LogModel> singleLog)
         {
             _sqlServerContext = sqlServerContext;
             _singleLog = singleLog;

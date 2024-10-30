@@ -13,14 +13,14 @@ namespace Observer.Data
     public class UserRepository : IUserRepository
     {
         private readonly ISqlServerContext _sqlServerContext;
-        private readonly ISingleLog<LogModel> _singleLog;
+        private readonly ISingletonLogger<LogModel> _singleLog;
 
         /// <summary>
         /// Repository constructor.
         /// </summary>
         /// <param name="sqlServerContext">Object ISqlServerContext.</param>
         /// <param name="singleLog">Object ISingleLog.</param>
-        public UserRepository(ISqlServerContext sqlServerContext, ISingleLog<LogModel> singleLog)
+        public UserRepository(ISqlServerContext sqlServerContext, ISingletonLogger<LogModel> singleLog)
         {
             _sqlServerContext = sqlServerContext;
             _singleLog = singleLog;

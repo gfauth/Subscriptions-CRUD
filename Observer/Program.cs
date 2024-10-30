@@ -30,7 +30,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<ISqlServerContext, SqlServerContext>();
 
-builder.Services.AddScoped<ISingleLog<LogModel>, SingleLog<LogModel>>();
+builder.Services.AddScoped<ISingletonLogger<LogModel>, SingletonLogger<LogModel>>();
 
 //Configure database connection
 
