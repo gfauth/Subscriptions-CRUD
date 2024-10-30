@@ -13,7 +13,8 @@ namespace Observer.Data
     /// Sealed class that will run database routines at application runtime
     /// </summary>
     /// <typeparam name="T">Represent a type of object will return into IResponse</typeparam>
-    public sealed class QueryRunner<T1, T2>
+    /// <typeparam name="T2">Represent a type of object will be given into parameter 'parameters'</typeparam>
+    public sealed class QueryRunner<T>
     {
         /// <summary>
         /// Execute a query that will return a single object or single response.
@@ -24,7 +25,7 @@ namespace Observer.Data
         /// <param name="query">string query.</param>
         /// <param name="parameters">representation of parameter, object ir a struct data.</param>
         /// <returns>IResponse</returns>
-        public static async Task<IResponse<T1>> ExecuteQuerySingleTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, T2? parameters)
+        public static async Task<IResponse<T>> ExecuteQuerySingleTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object? parameters)
         {
             var baseLog = await singleLog.GetBaseLogAsync();
             var sublog = new SubLogDatabase();
@@ -39,13 +40,13 @@ namespace Observer.Data
             {
                 var dynamicParameters = new DynamicParameters(parameters);
 
-                return await Policies.GetPolicyAsync().ExecuteAsync(async Task<IResponse<T1>> () =>
+                return await Policies.GetPolicyAsync().ExecuteAsync(async Task<IResponse<T>> () =>
                 {
                     await using SqlConnection connection = await sqlServerContext.GetConnection();
 
-                    var response = await connection.QuerySingleAsync<T1>(query, dynamicParameters);
+                    var response = await connection.QuerySingleAsync<T>(query, dynamicParameters);
 
-                    return new ResponseOk<T1>(response);
+                    return new ResponseOk<T>(response);
                 });
             }
             catch (Exception ex)
@@ -53,7 +54,7 @@ namespace Observer.Data
                 sublog.Exception = ex;
 
                 if (ex.Message.Equals("Sequence contains no elements"))
-                    return new ResponseError<T1>("No data found.");
+                    return new ResponseError<T>("No data found.");
 
                 throw;
             }
@@ -74,7 +75,7 @@ namespace Observer.Data
         /// <param name="query">string query.</param>
         /// <param name="parameters">representation of parameter, object ir a struct data.</param>
         /// <returns>IResponse with a list</returns>
-        public static async Task<IResponse<List<T1>>> ExecuteQueryListTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, T2? parameters)
+        public static async Task<IResponse<List<T>>> ExecuteQueryListTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object? parameters)
         {
             var baseLog = await singleLog.GetBaseLogAsync();
             var sublog = new SubLog();
@@ -86,13 +87,13 @@ namespace Observer.Data
             {
                 var dynamicParameters = new DynamicParameters(parameters);
 
-                return await Policies.GetPolicyAsync().ExecuteAsync(async Task<IResponse<List<T1>>> () =>
+                return await Policies.GetPolicyAsync().ExecuteAsync(async Task<IResponse<List<T>>> () =>
                 {
                     await using SqlConnection connection = await sqlServerContext.GetConnection();
 
-                    var response = await connection.QueryAsync<T1>(query, dynamicParameters);
+                    var response = await connection.QueryAsync<T>(query, dynamicParameters);
 
-                    return new ResponseOk<List<T1>>(response.ToList());
+                    return new ResponseOk<List<T>>(response.ToList());
 
                 });
             }
@@ -101,7 +102,7 @@ namespace Observer.Data
                 sublog.Exception = ex;
 
                 if (ex.Message.Equals("Sequence contains no elements"))
-                    return new ResponseError<List<T1>>("No data found.");
+                    return new ResponseError<List<T>>("No data found.");
 
                 throw;
             }

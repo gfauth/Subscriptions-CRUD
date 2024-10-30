@@ -32,7 +32,7 @@ namespace Observer.Data.Repositories
         /// <param name="productData">Object Products</param>
         /// <returns></returns>
         public async Task<IResponse<Products>> InsertProduct(Products productData) =>
-            await QueryRunner<Products, Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_CREATE_DATA,
+            await QueryRunner<Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_CREATE_DATA,
             _sqlServerContext, QueryData.InsertProducts, productData);
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Observer.Data.Repositories
         /// <param name="productId">Products identification</param>
         /// <returns></returns>
         public async Task<IResponse<Products>> SelectProduct(int productId) =>
-            await QueryRunner<Products, object>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_RETRIEVE_DATA,
+            await QueryRunner<Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_RETRIEVE_DATA,
             _sqlServerContext, QueryData.SelectOneProducts, new { productId });
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Observer.Data.Repositories
         /// <param name="productData">Object Products</param>
         /// <returns></returns>
         public async Task<IResponse<bool>> UpdateProduct(Products productData) =>
-            await QueryRunner<bool, Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_UPDATE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_UPDATE_DATA,
             _sqlServerContext, QueryData.UpdateProducts, productData);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Observer.Data.Repositories
         /// <param name="productId">Products identification</param>
         /// <returns></returns>
         public async Task<IResponse<bool>> DeleteProduct(int productId) =>
-            await QueryRunner<bool, object>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_DELETE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_DELETE_DATA,
             _sqlServerContext, QueryData.DeleteProducts, new { productId });
     }
 }

@@ -32,7 +32,7 @@ namespace Observer.Data.Repositories
         /// <param name="userData">Object Users</param>
         /// <returns></returns>
         public async Task<IResponse<Users>> InsertUser(Users userData) =>
-            await QueryRunner<Users, Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_CREATE_DATA,
+            await QueryRunner<Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_CREATE_DATA,
             _sqlServerContext, QueryData.InsertUsers, userData);
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Observer.Data.Repositories
         /// <param name="userId">Users identification</param>
         /// <returns></returns>
         public async Task<IResponse<Users>> SelectUser(int userId) =>
-            await QueryRunner<Users, object>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_RETRIEVE_DATA,
+            await QueryRunner<Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_RETRIEVE_DATA,
             _sqlServerContext, QueryData.SelectOneUsers, new { userId });
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Observer.Data.Repositories
         /// <param name="userData">Object Users</param>
         /// <returns></returns>
         public async Task<IResponse<bool>> UpdateUser(Users userData) =>
-            await QueryRunner<bool, Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_UPDATE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_UPDATE_DATA,
             _sqlServerContext, QueryData.UpdateUsers, userData);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Observer.Data.Repositories
         /// <param name="userId">Users identification</param>
         /// <returns></returns>
         public async Task<IResponse<bool>> DeleteUser(int userId) =>
-            await QueryRunner<bool, object>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_DELETE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_DELETE_DATA,
             _sqlServerContext, QueryData.DeleteUsers, new { userId });
     }
 }

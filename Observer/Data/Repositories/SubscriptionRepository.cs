@@ -32,7 +32,7 @@ namespace Observer.Data.Repositories
         /// <param name="subscriptionData">Object Products</param>
         /// <returns></returns>
         public async Task<IResponse<Subscriptions>> InsertSubscription(Subscriptions subscriptionData) =>
-            await QueryRunner<Subscriptions, Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
+            await QueryRunner<Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
             _sqlServerContext, QueryData.InsertSubscriptions, subscriptionData);
 
         /// <summary>
@@ -41,15 +41,15 @@ namespace Observer.Data.Repositories
         /// <param name="subscriptionId">Products identification</param>
         /// <returns></returns>
         public async Task<IResponse<Subscriptions>> SelectOneSubscription(int subscriptionId) =>
-            await QueryRunner<Subscriptions, int>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
-            _sqlServerContext, QueryData.SelectOneSubscriptions, subscriptionId);
+            await QueryRunner<Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
+            _sqlServerContext, QueryData.SelectOneSubscriptions, new { subscriptionId });
 
         /// <summary>
         /// Select all existent into Products table.
         /// </summary>
         /// <returns></returns>
         public async Task<IResponse<List<Subscriptions>>> SelectAllSubscription() =>
-            await QueryRunner<Subscriptions, object>.ExecuteQueryListTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
+            await QueryRunner<Subscriptions>.ExecuteQueryListTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
             _sqlServerContext, QueryData.SelectOneSubscriptions, null);
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Observer.Data.Repositories
         /// <param name="subscriptionData">Object Products</param>
         /// <returns></returns>
         public async Task<IResponse<bool>> UpdateSubscription(Subscriptions subscriptionData) =>
-            await QueryRunner<bool, Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_UPDATE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_UPDATE_DATA,
             _sqlServerContext, QueryData.UpdateSubscriptions, subscriptionData);
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Observer.Data.Repositories
         /// <param name="subscriptionId">Products identification</param>
         /// <returns></returns>
         public async Task<IResponse<bool>> DeleteSubscription(int subscriptionId) =>
-            await QueryRunner<bool, int>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
-            _sqlServerContext, QueryData.DeleteSubscriptions, subscriptionId);
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
+            _sqlServerContext, QueryData.DeleteSubscriptions, new { subscriptionId });
     }
 }

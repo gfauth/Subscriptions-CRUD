@@ -9,7 +9,6 @@ using Observer.Presentation.Logs;
 using Observer.Presentation.Models.Requests;
 using Observer.Presentation.Models.Responses;
 using SingleLog.Enums;
-using SingleLog.Interfaces;
 using SingleLog.Models;
 using System.Net;
 
