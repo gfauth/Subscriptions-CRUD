@@ -4,12 +4,12 @@ using SingleLog.Models;
 
 namespace SingleLog
 {
-    public sealed class SingleLog<T1> : ISingleLog<T1> where T1 : BaseLogStep
+    public sealed class SingletonLogger<T1> : ISingletonLogger<T1> where T1 : BaseLogObject
     {
         private readonly LoggerManager _loggerManager;
         private T1? _baseLog;
 
-        public SingleLog()
+        public SingletonLogger()
         {
             if (_loggerManager is null)
                 _loggerManager = new LoggerManager();
@@ -31,7 +31,7 @@ namespace SingleLog
             foreach (var step in value.Steps.Values)
             {
                 if (step is not null && step is SubLog)
-                    ((SubLog)step).StopwatchStop();
+                    ((SubLog)step).StopCronometer();
 
                 elapsedMilliseconds += ((SubLog)step!).ElapsedMilliseconds;
             }

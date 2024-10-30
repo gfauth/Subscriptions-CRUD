@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace SingleLog.Models
 {
-    public class BaseLogStep : IDisposable
+    public class BaseLogObject : IDisposable
     {
         public string Id { get; set; }
         public string? Endpoint { get; set; }
@@ -24,7 +24,7 @@ namespace SingleLog.Models
         [Newtonsoft.Json.JsonIgnore]
         internal ConcurrentDictionary<string, int> StepCount { get; set; }
 
-        public BaseLogStep()
+        public BaseLogObject()
         {
             Level = LogTypes.INFO;
             Id = Guid.NewGuid().ToString();
@@ -39,11 +39,7 @@ namespace SingleLog.Models
             if (subLog is null)
                 subLog = new SubLog();
 
-            TraceStep.Add(new TraceLog
-            {
-                Id = TraceStep.Count + 1,
-                Name = baseStep
-            });
+            TraceStep.Add(new TraceLog { Id = TraceStep.Count + 1, Name = baseStep });
 
             subLog.TraceId = TraceStep.Count;
 
@@ -54,15 +50,20 @@ namespace SingleLog.Models
                 if (total >= 2)
                 {
                     total++;
+
                     var logName = $"{baseStep}_{total.ToString().PadLeft(3, '0')}";
+
                     Steps.TryAdd(logName, subLog);
                     StepCount.TryUpdate(baseStep, total, total - 1);
                 }
                 else
                 {
                     var logName = $"{baseStep}_{total.ToString().PadLeft(3, '0')}";
+
                     total++;
+
                     var _logName = $"{baseStep}_{total.ToString().PadLeft(3, '0')}";
+
                     Steps.TryRemove(baseStep, out var obj);
                     Steps.TryAdd(logName, obj!);
                     Steps.TryAdd(_logName, subLog);
@@ -72,8 +73,11 @@ namespace SingleLog.Models
             else if (addCountStep.HasValue && addCountStep.Value)
             {
                 StepCount.TryGetValue(baseStep, out int total);
+
                 total++;
+
                 var logName = $"{baseStep}_{total.ToString().PadLeft(3, '0')}";
+
                 Steps.TryAdd(baseStep, subLog);
                 StepCount.TryAdd(baseStep, total);
             }
@@ -85,8 +89,6 @@ namespace SingleLog.Models
 
             return Task.CompletedTask;
         }
-
-        public async Task AddStepAsync(string baseLog, Func<SubLog> func) => await AddStepAsync(baseLog, func());
 
         public void Dispose()
         {

@@ -21,14 +21,17 @@ namespace SingleLog.Models
         {
             ExecutedAt = DateTime.Now;
             Stopwatch = new Stopwatch();
+
+            StartCronometer();
         }
 
-        public void StopwatchStart()
+        public void StartCronometer()
         {
-            Stopwatch.Start();
+            if (Stopwatch.IsRunning)
+                Stopwatch.Start();
         }
 
-        public void StopwatchStop()
+        public void StopCronometer()
         {
             Stopwatch.Stop();
             ElapsedMilliseconds = Stopwatch.ElapsedMilliseconds;

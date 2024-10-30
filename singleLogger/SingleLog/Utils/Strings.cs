@@ -4,29 +4,18 @@ namespace SingleLog.Utils
 {
     public static partial class Strings
     {
-        public static string Clean(string dirtValue, bool cleanTag = false, bool cleanXml = false)
+        public static string Clean(string dirtValue)
         {
-            string cleanValue = dirtValue;
+            dirtValue = Regex.Replace(dirtValue, @"\r\n?|\n|\r", " ");
+            dirtValue = Regex.Replace(dirtValue, @"\t", " ");
+            dirtValue = Regex.Replace(dirtValue, @"\s{2,}", " ");
 
-            if (cleanTag)
-                cleanValue = Regex.Replace(cleanValue, @"<[^>]+>|&nbsp;", "");
+            dirtValue = dirtValue.Trim();
 
-            if (cleanXml)
-            {
-                cleanValue = Regex.Replace(cleanValue, @"<", "");
-                cleanValue = Regex.Replace(cleanValue, @">", "");
-            }
+            if (string.IsNullOrWhiteSpace(dirtValue))
+                dirtValue = string.Empty;
 
-            cleanValue = Regex.Replace(cleanValue, @"\r\n?|\n|\r", " ");
-            cleanValue = Regex.Replace(cleanValue, @"\t", " ");
-            cleanValue = Regex.Replace(cleanValue, @"\s{2,}", " ");
-
-            cleanValue = cleanValue.Trim();
-
-            if (string.IsNullOrWhiteSpace(cleanValue))
-                cleanValue = string.Empty;
-
-            return cleanValue;
+            return dirtValue;
         }
     }
 }

@@ -7,11 +7,11 @@ namespace SingleLog
 {
     public sealed class LoggerManager : IDisposable
     {
-        private readonly Logger messageLog;
+        private readonly Logger message;
 
         public LoggerManager()
         {
-            messageLog = LogManager.GetCurrentClassLogger();
+            message = LogManager.GetCurrentClassLogger();
         }
 
         public void Dispose()
@@ -19,17 +19,12 @@ namespace SingleLog
             LogManager.Shutdown();
         }
 
-        public void WriteLog(dynamic message)
-        {
-            WriteLog(message.Level, message);
-        }
-
         public void WriteLog(LogTypes type, object obj)
         {
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
             {
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 NullValueHandling = NullValueHandling.Ignore
             };
@@ -39,19 +34,20 @@ namespace SingleLog
             switch (type)
             {
                 case LogTypes.INFO:
-                    messageLog.Info(jsonObject);
+                    message.Info(jsonObject);
                     break;
                 case LogTypes.WARN:
-                    messageLog.Warn(jsonObject);
+                    message.Warn(jsonObject);
                     break;
                 case LogTypes.ERROR:
-                    messageLog.Error(jsonObject);
+                    message.Error(jsonObject);
                     break;
                 case LogTypes.FATAL:
                 default:
-                    messageLog.Fatal(jsonObject);
+                    message.Fatal(jsonObject);
                     break;
             }
         }
     }
+
 }

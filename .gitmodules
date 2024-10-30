@@ -1,0 +1,3 @@
+[submodule "SingleLogger"]
+	path = SingleLogger
+	url = https://github.com/lgfauth/SingleLoggerLibrary.git

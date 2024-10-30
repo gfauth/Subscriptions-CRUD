@@ -3,7 +3,7 @@ using SingleLog.Models;
 
 namespace SingleLog.Interfaces
 {
-    public interface ISingleLog<T1> where T1 : BaseLogStep
+    public interface ISingletonLogger<T1> where T1 : BaseLogObject
     {
         Task<T1> CreateBaseLogAsync();
         Task<T1> GetBaseLogAsync();

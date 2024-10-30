@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObserverTest", "ObserverTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer", "Observer\Observer.csproj", "{11BEF6DF-022C-4B9E-AC59-3C1608192C4E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleLog", "singleLogger\SingleLog\SingleLog.csproj", "{2E2A15E8-A628-4E8B-B261-E8BF344B152C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleLog", "SingleLogger\SingleLog\SingleLog.csproj", "{D9EEC45F-1901-42E8-BADC-46104864BEC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{11BEF6DF-022C-4B9E-AC59-3C1608192C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11BEF6DF-022C-4B9E-AC59-3C1608192C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11BEF6DF-022C-4B9E-AC59-3C1608192C4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E2A15E8-A628-4E8B-B261-E8BF344B152C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E2A15E8-A628-4E8B-B261-E8BF344B152C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E2A15E8-A628-4E8B-B261-E8BF344B152C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E2A15E8-A628-4E8B-B261-E8BF344B152C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9EEC45F-1901-42E8-BADC-46104864BEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9EEC45F-1901-42E8-BADC-46104864BEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9EEC45F-1901-42E8-BADC-46104864BEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9EEC45F-1901-42E8-BADC-46104864BEC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
