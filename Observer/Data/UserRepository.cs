@@ -27,19 +27,19 @@ namespace Observer.Data
         }
 
         public async Task<IResponse<Users>> InsertUser(Users userData) =>
-            await QueryExecuter<Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_CREATE_DATA, 
+            await QueryRunner<Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_CREATE_DATA, 
             _sqlServerContext, QueryData.InsertUsers, userData);
 
         public async Task<IResponse<Users>> SelectUser(int userId) =>
-            await QueryExecuter<Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_RETRIEVE_DATA, 
+            await QueryRunner<Users>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_RETRIEVE_DATA, 
             _sqlServerContext, QueryData.SelectOneUsers, userId);
 
         public async Task<IResponse<bool>> UpdateUser(Users userData) =>
-            await QueryExecuter<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_UPDATE_DATA, 
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_UPDATE_DATA, 
             _sqlServerContext, QueryData.UpdateUsers, userData);
 
         public async Task<IResponse<bool>> DeleteUser(int userId) =>
-            await QueryExecuter<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_DELETE_DATA, 
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.USER_DATABASE_DELETE_DATA, 
             _sqlServerContext, QueryData.DeleteUsers, userId);
     }
 }

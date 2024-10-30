@@ -27,19 +27,19 @@ namespace Observer.Data
         }
 
         public async Task<IResponse<Products>> InsertProduct(Products productData) =>
-            await QueryExecuter<Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_CREATE_DATA, 
+            await QueryRunner<Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_CREATE_DATA, 
             _sqlServerContext, QueryData.InsertProducts, productData);
 
         public async Task<IResponse<Products>> SelectProduct(int productId) =>
-            await QueryExecuter<Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_RETRIEVE_DATA, 
+            await QueryRunner<Products>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_RETRIEVE_DATA, 
             _sqlServerContext, QueryData.InsertProducts, productId);
 
         public async Task<IResponse<bool>> UpdateProduct(Products productData) =>
-            await QueryExecuter<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_UPDATE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_UPDATE_DATA,
             _sqlServerContext, QueryData.InsertProducts, productData);
 
         public async Task<IResponse<bool>> DeleteProduct(int productId) =>
-            await QueryExecuter<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_DELETE_DATA, 
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.PRODUCT_DATABASE_DELETE_DATA, 
             _sqlServerContext, QueryData.SelectOneProducts, productId);
     }
 }

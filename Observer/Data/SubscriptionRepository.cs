@@ -27,23 +27,23 @@ namespace Observer.Data
         }
 
         public async Task<IResponse<Subscriptions>> InsertSubscription(Subscriptions subscriptionData) => 
-            await QueryExecuter<Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
+            await QueryRunner<Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
             _sqlServerContext, QueryData.InsertSubscriptions, subscriptionData);
 
         public async Task<IResponse<Subscriptions>> SelectOneSubscription(int subscriptionId) =>
-            await QueryExecuter<Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
+            await QueryRunner<Subscriptions>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
             _sqlServerContext, QueryData.SelectOneSubscriptions, subscriptionId);
 
         public async Task<IResponse<List<Subscriptions>>> SelectAllSubscription(int subscriptionId) =>
-            await QueryExecuter<Subscriptions>.ExecuteQueryListTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
+            await QueryRunner<Subscriptions>.ExecuteQueryListTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_RETRIEVE_DATA,
             _sqlServerContext, QueryData.SelectOneSubscriptions, subscriptionId);
 
         public async Task<IResponse<bool>> UpdateSubscription(Subscriptions subscriptionData) =>
-            await QueryExecuter<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_UPDATE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_UPDATE_DATA,
             _sqlServerContext, QueryData.UpdateSubscriptions, subscriptionData);
 
         public async Task<IResponse<bool>> DeleteSubscription(int subscriptionId) =>
-            await QueryExecuter<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
+            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_DELETE_DATA,
             _sqlServerContext, QueryData.DeleteSubscriptions, subscriptionId);
     }
 }

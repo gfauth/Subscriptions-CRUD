@@ -8,7 +8,7 @@ using SingleLog.Models;
 
 namespace Observer.Data
 {
-    public static class QueryExecuter<T>
+    public sealed class QueryRunner<T>
     {
         public static async Task<IResponse<T>> ExecuteQuerySingleTAsync(ISingleLog<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object parameters)
         {
