@@ -13,57 +13,57 @@ using System.Net;
 namespace Observer.Controllers
 {
     /// <summary>
-    /// Product Controller.
+    /// Subscription Controller.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    public class SubscriptionController : ControllerBase
     {
-        private readonly IProductServices _productServices;
+        private readonly ISubscriptionServices _subscriptionServices;
         private readonly ISingletonLogger<LogModel> _singleLog;
 
         /// <summary>
         /// General constructor.
         /// </summary>
-        /// <param name="productServices">Service class based on IProductServices.</param>
+        /// <param name="subscriptionServices">Service class based on ISubscriptionServices.</param>
         /// <param name="singleLog">Service class of log based on ISingleLog.</param>
-        public ProductController(IProductServices productServices, ISingletonLogger<LogModel> singleLog)
+        public SubscriptionController(ISubscriptionServices subscriptionServices, ISingletonLogger<LogModel> singleLog)
         {
-            _productServices = productServices ?? throw new ArgumentNullException(nameof(productServices));
+            _subscriptionServices = subscriptionServices ?? throw new ArgumentNullException(nameof(subscriptionServices));
             _singleLog = singleLog ?? throw new ArgumentNullException(nameof(singleLog));
         }
 
         /// <summary>
-        /// GET endpoint to retrieve some product data.
+        /// GET endpoint to retrieve some subscription data.
         /// </summary>
-        /// <param name="productId">Product identification.</param>
-        /// <returns>Object ProductResponse</returns>
+        /// <param name="subscriptionId">Subscription identification.</param>
+        /// <returns>Object SubscriptionResponse</returns>
         [HttpGet]
-        [Route("{productId}")]
+        [Route("{subscriptionId}")]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status201Created)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductDetails(int productId)
+        public async Task<ActionResult<ResponseEnvelope>> SubscriptionDetails(int subscriptionId)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
-            baseLog.Request = new { productId };
+            baseLog.Request = new { subscriptionId };
 
             var sublog = new SubLog();
-            await baseLog.AddStepAsync(LogSteps.GET_PRODUCT_BY_ID, sublog);
+            await baseLog.AddStepAsync(LogSteps.GET_SUBSCRIPTION_BY_ID, sublog);
             sublog.StartCronometer();
 
             try
             {
-                if (productId <= 0)
+                if (subscriptionId <= 0)
                 {
-                    var responseError = ProductResponseErrors.InvalidProductId;
+                    var responseError = SubscriptionResponseErrors.InvalidSubscriptionId;
                     baseLog.Response = responseError;
                     baseLog.Level = LogTypes.WARN;
 
-                    return StatusCode((int)ProductResponseErrors.InvalidProductId.ResponseCode, ProductResponseErrors.InvalidProductId);
+                    return StatusCode((int)SubscriptionResponseErrors.InvalidSubscriptionId.ResponseCode, SubscriptionResponseErrors.InvalidSubscriptionId);
                 }
 
-                var response = await _productServices.RetrieveProduct(productId);
+                var response = await _subscriptionServices.RetrieveSubscription(subscriptionId);
 
                 baseLog.Response = response;
 
@@ -83,7 +83,7 @@ namespace Observer.Controllers
                 sublog.Exception = ex;
                 baseLog.Level = LogTypes.ERROR;
 
-                var responseError = ProductResponseErrors.InternalServerError;
+                var responseError = SubscriptionResponseErrors.InternalServerError;
                 baseLog.Response = responseError;
 
                 return StatusCode((int)responseError.ResponseCode, responseError);
@@ -99,27 +99,27 @@ namespace Observer.Controllers
         /// <summary>
         /// POST endpoint to create a new user in the sistem.
         /// </summary>
-        /// <param name="product">Object ProductRequest with user data.</param>
-        /// <returns>Object ProductResponse</returns>
+        /// <param name="subscription">Object SubscriptionRequest with user data.</param>
+        /// <returns>Object SubscriptionResponse</returns>
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductCreate(ProductRequest product)
+        public async Task<ActionResult<ResponseEnvelope>> SubscriptionCreate(SubscriptionRequest subscription)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
 
-            baseLog.Request = product;
+            baseLog.Request = subscription;
 
             var sublog = new SubLog();
-            await baseLog.AddStepAsync(LogSteps.CREATE_NEW_PRODUCT, sublog);
+            await baseLog.AddStepAsync(LogSteps.CREATE_NEW_SUBSCRIPTION, sublog);
 
             sublog.StartCronometer();
 
             try
             {
-                var validation = product.IsValid();
+                var validation = subscription.IsValid();
 
                 if (!validation.ResponseCode.Equals(HttpStatusCode.Continue))
                 {
@@ -129,7 +129,7 @@ namespace Observer.Controllers
                     return StatusCode((int)validation.ResponseCode, validation);
                 }
 
-                var response = await _productServices.CreateProduct(product);
+                var response = await _subscriptionServices.CreateSubscription(subscription);
 
                 baseLog.Response = response;
 
@@ -149,82 +149,7 @@ namespace Observer.Controllers
                 sublog.Exception = ex;
                 baseLog.Level = LogTypes.ERROR;
 
-                var responseError = ProductResponseErrors.InternalServerError;
-                baseLog.Response = responseError;
-
-                return StatusCode((int)responseError.ResponseCode, responseError);
-            }
-            finally
-            {
-                sublog.StopCronometer();
-
-                await _singleLog.WriteLogAsync(baseLog);
-            }
-        }
-
-        /// <summary>
-        /// PUT endpoint to edit data for a specific user.
-        /// </summary>
-        /// <param name="productId">Product identification.</param>
-        /// <param name="product">Object ProductRequest with user data.</param>
-        /// <returns>Object ProductResponse</returns>
-        [HttpPut]
-        [Route("{productId}")]
-        [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductEdit(int productId, ProductRequest product)
-        {
-            var baseLog = await _singleLog.CreateBaseLogAsync();
-            baseLog.Request = new { productId, product };
-
-            var sublog = new SubLog();
-            await baseLog.AddStepAsync(LogSteps.EDIT_PRODUCT_BY_ID, sublog);
-
-            sublog.StartCronometer();
-
-            try
-            {
-                if (productId <= 0)
-                {
-                    var responseError = ProductResponseErrors.InvalidProductId;
-                    baseLog.Response = responseError;
-                    baseLog.Level = LogTypes.WARN;
-
-                    return StatusCode((int)ProductResponseErrors.InvalidProductId.ResponseCode, ProductResponseErrors.InvalidProductId);
-                }
-
-                var validation = product.IsValid();
-
-                if (!validation.ResponseCode.Equals(HttpStatusCode.Continue))
-                {
-                    baseLog.Response = validation;
-                    baseLog.Level = LogTypes.WARN;
-
-                    return StatusCode((int)validation.ResponseCode, validation);
-                }
-
-                var response = await _productServices.UpdateProduct(productId, product);
-
-                baseLog.Response = response;
-
-                if (response.Data.ResponseCode.Equals(HttpStatusCode.OK))
-                {
-                    baseLog.Level = LogTypes.INFO;
-
-                    return Ok(response.Data);
-                }
-
-                baseLog.Level = LogTypes.WARN;
-
-                return StatusCode((int)response.Data.ResponseCode, response.Data);
-            }
-            catch (Exception ex)
-            {
-                sublog.Exception = ex;
-                baseLog.Level = LogTypes.ERROR;
-
-                var responseError = ProductResponseErrors.InternalServerError;
+                var responseError = SubscriptionResponseErrors.InternalServerError;
                 baseLog.Response = responseError;
 
                 return StatusCode((int)responseError.ResponseCode, responseError);
@@ -240,35 +165,35 @@ namespace Observer.Controllers
         /// <summary>
         /// DELETE endpoint to delete some user into sistem.
         /// </summary>
-        /// <param name="productId">Product identification.</param>
-        /// <returns>Object ProductResponse</returns>
+        /// <param name="subscriptionId">Subscription identification.</param>
+        /// <returns>Object SubscriptionResponse</returns>
         [HttpDelete]
-        [Route("{productId}")]
+        [Route("{subscriptionId}")]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductDelete(int productId)
+        public async Task<ActionResult<ResponseEnvelope>> SubscriptionDelete(int subscriptionId)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
-            baseLog.Request = new { productId };
+            baseLog.Request = new { subscriptionId };
 
             var sublog = new SubLog();
-            await baseLog.AddStepAsync(LogSteps.DELETE_PRODUCT_BY_ID, sublog);
+            await baseLog.AddStepAsync(LogSteps.DELETE_SUBSCRIPTION_BY_ID, sublog);
 
             sublog.StartCronometer();
 
             try
             {
-                if (productId <= 0)
+                if (subscriptionId <= 0)
                 {
-                    var responseError = ProductResponseErrors.InvalidProductId;
+                    var responseError = SubscriptionResponseErrors.InvalidSubscriptionId;
                     baseLog.Response = responseError;
                     baseLog.Level = LogTypes.WARN;
 
-                    return StatusCode((int)ProductResponseErrors.InvalidProductId.ResponseCode, ProductResponseErrors.InvalidProductId);
+                    return StatusCode((int)SubscriptionResponseErrors.InvalidSubscriptionId.ResponseCode, SubscriptionResponseErrors.InvalidSubscriptionId);
                 }
 
-                var response = await _productServices.DeleteProduct(productId);
+                var response = await _subscriptionServices.DeleteSubscription(subscriptionId);
 
                 baseLog.Response = response;
 
