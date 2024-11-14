@@ -12,7 +12,7 @@ using Observer.Domain.Models.Responses;
 using Observer.Domain.Models.Errors;
 using Observer.Domain.Models.LogModels;
 
-namespace Observer.Domain.Services
+namespace Observer.Services
 {
     public class ProductServices : IProductServices
     {

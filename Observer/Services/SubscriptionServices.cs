@@ -12,7 +12,7 @@ using SingleLog.Interfaces;
 using SingleLog.Models;
 using System.Net;
 
-namespace Observer.Domain.Services
+namespace Observer.Services
 {
     public class SubscriptionServices : ISubscriptionServices
     {

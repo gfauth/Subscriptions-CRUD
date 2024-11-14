@@ -1,6 +1,6 @@
-﻿using Observer.Domain.Models.Errors;
+﻿using System.Net;
+using Observer.Domain.Models.Errors;
 using Observer.Domain.Models.Responses;
-using System.Net;
 
 namespace Observer.Domain.Models.Requests
 {
@@ -15,11 +15,8 @@ namespace Observer.Domain.Models.Requests
         /// <returns>Object ResponseEnvelope.</returns>
         public ResponseEnvelope IsValid()
         {
-            if (ProductId >= 0)
-                return SubscriptionResponseErrors.SubscriptionValidationErrorMessage("Informe um productId válido para a subscrição.");
-
-            if (UserId <= 0)
-                return SubscriptionResponseErrors.SubscriptionValidationErrorMessage("Informe um userId válido para a subscrição.");
+            if (ProductId >= 0 || UserId <= 0)
+                return SubscriptionResponseErrors.SubscriptionValidationErrorMessage("Informe um productId ou userId válido para a subscrição.");
 
             return new ResponseEnvelope(HttpStatusCode.Continue);
         }

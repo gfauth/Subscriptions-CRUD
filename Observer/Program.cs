@@ -5,7 +5,7 @@ using Observer.Data.Interfaces;
 using Observer.Data.Repositories;
 using Observer.Domain.Interfaces;
 using Observer.Domain.Models.LogModels;
-using Observer.Domain.Services;
+using Observer.Services;
 using SingleLog;
 using SingleLog.Interfaces;
 
