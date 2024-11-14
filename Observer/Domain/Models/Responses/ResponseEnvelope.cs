@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Observer.Presentation.Models.Responses
+namespace Observer.Domain.Models.Responses
 {
     /// <summary>
     /// Response record for use on UserController.

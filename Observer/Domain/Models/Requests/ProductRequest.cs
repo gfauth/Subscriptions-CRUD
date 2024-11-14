@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Observer.Presentation.Errors;
-using Observer.Presentation.Models.Responses;
+using Observer.Domain.Models.Errors;
+using Observer.Domain.Models.Responses;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Observer.Presentation.Models.Requests
+namespace Observer.Domain.Models.Requests
 {
     /// <summary>
     /// Request record for use on ProductController.

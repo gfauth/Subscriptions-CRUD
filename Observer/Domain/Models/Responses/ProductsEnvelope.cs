@@ -1,4 +1,4 @@
-﻿namespace Observer.Presentation.Models.Responses
+﻿namespace Observer.Domain.Models.Responses
 {
     /// <summary>
     /// User data response envelope.
@@ -15,7 +15,7 @@
 
         public ProductsEnvelope()
         {
-            
+
         }
     }
 }

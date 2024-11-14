@@ -1,8 +1,8 @@
-﻿using Observer.Presentation.Errors;
-using Observer.Presentation.Models.Responses;
+﻿using Observer.Domain.Models.Errors;
+using Observer.Domain.Models.Responses;
 using System.Net;
 
-namespace Observer.Presentation.Models.Requests
+namespace Observer.Domain.Models.Requests
 {
     public record SubscriptionRequest
     {

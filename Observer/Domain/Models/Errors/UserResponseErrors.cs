@@ -1,7 +1,7 @@
-﻿using Observer.Presentation.Models.Responses;
+﻿using Observer.Domain.Models.Responses;
 using System.Net;
 
-namespace Observer.Presentation.Errors
+namespace Observer.Domain.Models.Errors
 {
     public static class UserResponseErrors
     {

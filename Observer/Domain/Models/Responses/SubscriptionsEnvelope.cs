@@ -1,4 +1,4 @@
-﻿namespace Observer.Presentation.Models.Responses
+﻿namespace Observer.Domain.Models.Responses
 {
     public class SubscriptionsEnvelope
     {
@@ -10,7 +10,7 @@
 
         public SubscriptionsEnvelope()
         {
-            
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using SingleLog.Models;
 
-namespace Observer.Presentation.Logs
+namespace Observer.Domain.Models.LogModels
 {
     public class LogModel : BaseLogObject
     {

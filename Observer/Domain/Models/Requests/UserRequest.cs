@@ -1,10 +1,11 @@
-﻿using Observer.Presentation.Errors;
-using Observer.Presentation.Models.Responses;
+﻿using Observer.Domain.Models.Errors;
+using Observer.Domain.Models.Responses;
+using Observer.Domain.Validators;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Observer.Presentation.Models.Requests
+namespace Observer.Domain.Models.Requests
 {
     /// <summary>
     /// Request record for use on UserController.
@@ -59,7 +60,7 @@ namespace Observer.Presentation.Models.Requests
         /// </summary>
         /// <example>mycustomlogin</example>
         public string Login { get; }
-        
+
         /// <summary>
         /// User password.
         /// </summary>
@@ -72,24 +73,11 @@ namespace Observer.Presentation.Models.Requests
         /// <returns>Record UserResponse.</returns>
         public ResponseEnvelope IsValid()
         {
-            if (Name is null || Name.Equals(string.Empty) || Name.Length <= 2)
-                return UserResponseErrors.UserValidationErrorMessage("Informe um nome válido para o usuário.");
+            UsersValidator validationRules = new UsersValidator();
+            var result = validationRules.Validate(this);
 
-            if (LastName is null || LastName.Equals(string.Empty) || LastName.Length <= 2)
-                return UserResponseErrors.UserValidationErrorMessage("Informe um sobrenome válido para o usuário.");
-
-            if (Birthdate > DateTime.Now.AddYears(-18) || Birthdate < DateTime.Now.AddYears(-100))
-                return UserResponseErrors.UserValidationErrorMessage("Informe uma data de nascimento válida para o usuário. Apenas maiores de 18 anos.");
-
-            if (string.IsNullOrEmpty(Login) || Login.Length < 4)
-                return UserResponseErrors.UserValidationErrorMessage("Login precisa conter ao menos 5 dígitos para o usuário.");
-
-            var regex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-
-            if (string.IsNullOrEmpty(Password) || Password.Length < 8 && !regex.IsMatch(Password))
-                return UserResponseErrors.UserValidationErrorMessage("Password precisa conter ao menos 8 dígitos para o usuário.");
-
-            return new ResponseEnvelope(HttpStatusCode.Continue);
+            return result.IsValid ? new ResponseEnvelope(HttpStatusCode.Continue) :
+                UserResponseErrors.UserValidationErrorMessage(result.Errors.FirstOrDefault()!.ErrorMessage);
         }
     }
 }
