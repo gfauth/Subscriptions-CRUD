@@ -32,8 +32,8 @@ namespace Observer.Domain.Validators
                 .WithMessage("Description precisa conter ao menos 5 dígitos.");
 
             RuleFor(prod => prod.Stock)
-                .LessThan(1)
-                .GreaterThan(9999)
+                .LessThan(9999)
+                .GreaterThan(1)
                 .WithMessage("Não é possível cadastrar um produto com estoque inferior a 1 ou superior a 9999.");
         }
     }

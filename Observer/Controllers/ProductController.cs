@@ -43,7 +43,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status201Created)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductDetails(int productId)
+        public async Task<ActionResult<ResponseEnvelope>> ProductDetails([FromRoute] int productId)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
             baseLog.Request = new { productId };
@@ -106,7 +106,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductCreate(ProductRequest product)
+        public async Task<ActionResult<ResponseEnvelope>> ProductCreate([FromBody] ProductRequest product)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
 
@@ -173,7 +173,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductEdit(int productId, ProductRequest product)
+        public async Task<ActionResult<ResponseEnvelope>> ProductEdit([FromRoute] int productId, [FromBody] ProductRequest product)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
             baseLog.Request = new { productId, product };
@@ -247,7 +247,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> ProductDelete(int productId)
+        public async Task<ActionResult<ResponseEnvelope>> ProductDelete([FromRoute] int productId)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
             baseLog.Request = new { productId };

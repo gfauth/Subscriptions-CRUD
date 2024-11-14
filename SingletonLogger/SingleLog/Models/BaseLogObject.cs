@@ -1,7 +1,7 @@
-﻿using SingleLog.Enums;
-using SingleLog.Utils;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Text.Json.Serialization;
+using SingleLog.Enums;
+using SingleLog.Utils;
 
 namespace SingleLog.Models
 {
@@ -29,8 +29,8 @@ namespace SingleLog.Models
             Level = LogTypes.INFO;
             Id = Guid.NewGuid().ToString();
             TraceStep = new List<TraceLog>();
-            Steps = new ConcurrentDictionary<string, object>();
             StepCount = new ConcurrentDictionary<string, int>();
+            Steps = new ConcurrentDictionary<string, object>();
             ExecutedAt = DateConvert.ToBrazilianDateTime(DateTime.UtcNow);
         }
 

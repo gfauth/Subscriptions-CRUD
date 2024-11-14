@@ -4,9 +4,21 @@ using Observer.Domain.Models.Responses;
 
 namespace Observer.Domain.Models.Requests
 {
+    /// <summary>
+    /// Request notification subscription request model.
+    /// </summary>
     public record SubscriptionRequest
     {
+        /// <summary>
+        /// Related Product identification.
+        /// </summary>
+        /// <example>2</example>
         public int ProductId { get; private set; }
+
+        /// <summary>
+        /// Related User identification.
+        /// </summary>
+        /// <example>2</example>
         public int UserId { get; private set; }
 
         /// <summary>

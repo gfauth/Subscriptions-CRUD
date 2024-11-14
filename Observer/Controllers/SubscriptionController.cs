@@ -43,7 +43,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status201Created)]
-        public async Task<ActionResult<ResponseEnvelope>> SubscriptionDetails(int subscriptionId)
+        public async Task<ActionResult<ResponseEnvelope>> SubscriptionDetails([FromRoute] int subscriptionId)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
             baseLog.Request = new { subscriptionId };
@@ -106,7 +106,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> SubscriptionCreate(SubscriptionRequest subscription)
+        public async Task<ActionResult<ResponseEnvelope>> SubscriptionCreate([FromBody] SubscriptionRequest subscription)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
 
@@ -172,7 +172,7 @@ namespace Observer.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ResponseEnvelope), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseEnvelope>> SubscriptionDelete(int subscriptionId)
+        public async Task<ActionResult<ResponseEnvelope>> SubscriptionDelete([FromRoute] int subscriptionId)
         {
             var baseLog = await _singleLog.CreateBaseLogAsync();
             baseLog.Request = new { subscriptionId };
