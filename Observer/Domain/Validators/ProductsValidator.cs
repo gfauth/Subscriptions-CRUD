@@ -16,19 +16,19 @@ namespace Observer.Domain.Validators
             RuleFor(prod => prod.Name)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(3)
+                .Length(3, 150)
                 .WithMessage("Informe um nome válido para o produto.");
 
             RuleFor(prod => prod.Category)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(2)
+                .Length(2, 150)
                 .WithMessage("Informe uma categoria válida para o produto.");
 
             RuleFor(prod => prod.Description)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(2)
+                .Length(3, 500)
                 .WithMessage("Description precisa conter ao menos 5 dígitos.");
 
             RuleFor(prod => prod.Stock)

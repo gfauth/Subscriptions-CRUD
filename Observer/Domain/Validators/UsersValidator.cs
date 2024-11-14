@@ -17,13 +17,13 @@ namespace Observer.Domain.Validators
             RuleFor(user => user.Name)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(3)
+                .Length(3, 150)
                 .WithMessage("Informe um nome válido para o usuário.");
 
             RuleFor(user => user.LastName)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(3)
+                .Length(3, 150)
                 .WithMessage("Informe um sobrenome válido para o usuário.");
 
             RuleFor(user => user.Birthdate)
@@ -34,7 +34,7 @@ namespace Observer.Domain.Validators
             RuleFor(user => user.Login)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(5)
+                .Length(3, 30)
                 .WithMessage("Login precisa conter ao menos 5 dígitos para o usuário.");
 
             var regex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
