@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Observer.Constants;
 using Observer.Domain.Interfaces;
-using Observer.Presentation.Errors;
-using Observer.Presentation.Logs;
-using Observer.Presentation.Models.Requests;
-using Observer.Presentation.Models.Responses;
+using Observer.Domain.Models.Errors;
+using Observer.Domain.Models.LogModels;
+using Observer.Domain.Models.Requests;
+using Observer.Domain.Models.Responses;
 using SingleLog.Enums;
 using SingleLog.Interfaces;
 using SingleLog.Models;

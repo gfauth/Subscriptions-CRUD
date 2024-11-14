@@ -1,8 +1,8 @@
 using Moq;
 using Observer.Controllers;
 using Observer.Domain.Interfaces;
-using Observer.Presentation.Logs;
-using Observer.Presentation.Models.Requests;
+using Observer.Domain.Models.LogModels;
+using Observer.Domain.Models.Requests;
 using Observer.Presentation.Models.Responses;
 using ObserverTest.Data;
 using SingleLog.Interfaces;

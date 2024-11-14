@@ -1,16 +1,16 @@
-﻿using Observer.Presentation.Models.Responses;
-using Observer.Constants;
+﻿using Observer.Constants;
 using Observer.Data.Entities;
 using Observer.Data.Interfaces;
 using Observer.Domain.Interfaces;
-using Observer.Presentation.Logs;
-using Observer.Presentation.Models.Requests;
 using SingleLog.Interfaces;
 using SingleLog.Models;
 using System.Net;
-using Observer.Presentation.Errors;
 using Observer.Domain.ResponsesEnvelope;
 using AutoMapper;
+using Observer.Domain.Models.Requests;
+using Observer.Domain.Models.Responses;
+using Observer.Domain.Models.Errors;
+using Observer.Domain.Models.LogModels;
 
 namespace Observer.Domain.Services
 {

@@ -1,6 +1,6 @@
-﻿using Observer.Domain.ResponsesEnvelope;
-using Observer.Presentation.Models.Requests;
-using Observer.Presentation.Models.Responses;
+﻿using Observer.Domain.Models.Requests;
+using Observer.Domain.Models.Responses;
+using Observer.Domain.ResponsesEnvelope;
 
 namespace Observer.Domain.Interfaces
 {

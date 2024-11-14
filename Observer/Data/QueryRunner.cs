@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Observer.Data.Interfaces;
+using Observer.Domain.Models.LogModels;
 using Observer.Domain.ResponsesEnvelope;
-using Observer.Presentation.Logs;
-using Observer.Settings;
+using Observer.Domain.Settings;
 using SingleLog.Interfaces;
 using SingleLog.Models;
 
@@ -13,7 +13,6 @@ namespace Observer.Data
     /// Sealed class that will run database routines at application runtime
     /// </summary>
     /// <typeparam name="T">Represent a type of object will return into IResponse</typeparam>
-    /// <typeparam name="T2">Represent a type of object will be given into parameter 'parameters'</typeparam>
     public sealed class QueryRunner<T>
     {
         /// <summary>
@@ -51,8 +50,6 @@ namespace Observer.Data
             }
             catch (Exception ex)
             {
-                sublog.Exception = ex;
-
                 if (ex.Message.Equals("Sequence contains no elements"))
                     return new ResponseError<T>("No data found.");
 

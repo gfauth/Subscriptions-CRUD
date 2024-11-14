@@ -1,5 +1,5 @@
 ﻿using Observer.Data.Entities;
-using Observer.Presentation.Models.Requests;
+using Observer.Domain.Models.Requests;
 using Observer.Presentation.Models.Responses;
 using System.Net;
 

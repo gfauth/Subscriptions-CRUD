@@ -1,8 +1,8 @@
 ﻿using Observer.Constants;
 using Observer.Data.Entities;
 using Observer.Data.Interfaces;
+using Observer.Domain.Models.LogModels;
 using Observer.Domain.ResponsesEnvelope;
-using Observer.Presentation.Logs;
 using SingleLog.Interfaces;
 
 namespace Observer.Data.Repositories

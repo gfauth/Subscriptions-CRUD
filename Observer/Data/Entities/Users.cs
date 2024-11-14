@@ -1,4 +1,4 @@
-﻿using Observer.Presentation.Models.Requests;
+﻿using Observer.Domain.Models.Requests;
 
 namespace Observer.Data.Entities
 {
