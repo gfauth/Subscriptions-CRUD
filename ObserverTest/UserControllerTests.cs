@@ -3,7 +3,7 @@ using Observer.Controllers;
 using Observer.Domain.Interfaces;
 using Observer.Domain.Models.LogModels;
 using Observer.Domain.Models.Requests;
-using Observer.Presentation.Models.Responses;
+using Observer.Domain.Models.Responses;
 using ObserverTest.Data;
 using SingleLog.Interfaces;
 using System.Net;
@@ -67,11 +67,12 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Create(userRequest);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
             Assert.NotNull(result.Value);
-            Assert.Equal(1, result.Value.Data!.Id);
+            Assert.IsType<UsersEnvelope>(result.Value.Data!);
+            Assert.Equal(1, ((UsersEnvelope)result.Value.Data!).Id);
             Assert.Equal(HttpStatusCode.Created, result.Value.ResponseCode);
         }
 
@@ -94,10 +95,10 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Create(userRequest);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
-            var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
             Assert.Null(values.Data);
@@ -124,10 +125,10 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Create(userRequest);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
-            var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
             Assert.Null(values.Data);
@@ -154,10 +155,10 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Create(userRequest);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
-            var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
             Assert.Null(values.Data);
@@ -184,10 +185,10 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Create(userRequest);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
-            var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
             Assert.Null(values.Data);
@@ -214,10 +215,10 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Create(userRequest);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
-            var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
             Assert.Null(values.Data);
@@ -234,7 +235,7 @@ namespace ObserverTest
             var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             userServiceMock.Setup(mock => mock.RetrieveUser(It.IsAny<int>()))
-                .ReturnsAsync(FakeData.SuccessRetrieveUserResponse(FakeData.UsefulUserRequest()));
+                .ReturnsAsync(FakeData.SuccessCreateUserResponse(FakeData.UsefulUserRequest()));
 
             singleLogMock.Setup(mock => mock.WriteLogAsync(It.IsAny<LogModel>()));
             singleLogMock.Setup(mock => mock.CreateBaseLogAsync()).ReturnsAsync(new LogModel());
@@ -243,12 +244,15 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Details(userId);
+            var result = await controller.UserDetails(userId);
 
             // Assert
-            Assert.NotNull(result.Value);
-            Assert.Equal(userId, result.Value.Data!.Id);
-            Assert.Equal(HttpStatusCode.OK, result.Value.ResponseCode);
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+
+            Assert.NotNull(values);
+            Assert.IsType<UsersEnvelope>(values.Data!);
+            Assert.Equal(1, ((UsersEnvelope)values.Data!).Id);
+            Assert.Equal(HttpStatusCode.OK, values.ResponseCode);
         }
 
         [Theory]
@@ -266,10 +270,10 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.Details(userId);
+            var result = await controller.UserDetails(userId);
 
             // Assert
-            var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
             Assert.Equal("Informe um 'userId' válido para a requisição.", values.Details);

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObserverTest", "ObserverTest\ObserverTest.csproj", "{D9D3A875-4159-4ADE-845E-F9A11C8792B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObserverApiTest", "ObserverTest\ObserverApiTest.csproj", "{D9D3A875-4159-4ADE-845E-F9A11C8792B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer", "Observer\Observer.csproj", "{11BEF6DF-022C-4B9E-AC59-3C1608192C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObserverApi", "Observer\ObserverApi.csproj", "{11BEF6DF-022C-4B9E-AC59-3C1608192C4E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleLog", "SingletonLogger\SingleLog\SingleLog.csproj", "{70E94D47-B877-4F1A-9651-5B88C9693B70}"
 EndProject

@@ -3,7 +3,6 @@ using Observer.Domain.Models.Responses;
 using Observer.Domain.Validators;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Observer.Domain.Models.Requests
 {
