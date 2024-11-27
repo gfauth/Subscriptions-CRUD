@@ -27,8 +27,8 @@ namespace Observer.Services
         /// <param name="singleLog">Service class of log based on ISingleLog.</param>
         public SubscriptionServices(ISubscriptionRepository subscriptionRepository, ISingletonLogger<LogModel> singleLog)
         {
-            _subscriptionRepository = subscriptionRepository;
-            _singleLog = singleLog;
+            _subscriptionRepository = subscriptionRepository ?? throw new ArgumentNullException(nameof(subscriptionRepository));
+            _singleLog = singleLog ?? throw new ArgumentNullException(nameof(singleLog));
 
             _mapperConfiguration = new MapperConfiguration(config => { config.CreateMap<Subscriptions, SubscriptionsEnvelope>(); });
         }

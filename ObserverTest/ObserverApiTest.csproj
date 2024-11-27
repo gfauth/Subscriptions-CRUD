@@ -25,4 +25,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\User\" />
+    <Folder Include="Services\Product\" />
+  </ItemGroup>
+
 </Project>

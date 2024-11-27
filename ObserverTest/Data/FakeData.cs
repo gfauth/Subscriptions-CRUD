@@ -113,5 +113,18 @@ namespace ObserverApiTest.Data
 
         internal static IResponse<ResponseEnvelope> NotFoundErrorSubscriptionResponse() =>
             new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.SubscriptionNotFound);
+
+
+
+        internal static IResponse<Subscriptions> SuccessCreateSubscriptionServiceResponse(SubscriptionRequest subscriptionRequest) =>
+            new ResponseOk<Subscriptions>(new Subscriptions(1, subscriptionRequest));
+
+        internal static IResponse<Subscriptions> SuccessRetrieveSubscriptionServiceResponse() =>
+            new ResponseOk<Subscriptions>(new Subscriptions(1, new Subscriptions(1, new SubscriptionRequest(1, 1))));
+
+        internal static IResponse<Subscriptions> NoDataFoundCreateSubscriptionServiceResponse() => new ResponseError<Subscriptions>("No data found.");
+
+        internal static IResponse<Subscriptions> NotFoundRetrieveSubscriptionServiceResponse() => 
+            new ResponseError<Subscriptions>("Nenhuma subscrição encontrada. O identificador informado não resultou em dados nesta ação.");
     }
 }

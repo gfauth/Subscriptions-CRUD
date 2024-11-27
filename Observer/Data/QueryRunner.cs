@@ -24,7 +24,8 @@ namespace Observer.Data
         /// <param name="query">string query.</param>
         /// <param name="parameters">representation of parameter, object ir a struct data.</param>
         /// <returns>IResponse</returns>
-        public static async Task<IResponse<T>> ExecuteQuerySingleTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object? parameters)
+        public static async Task<IResponse<T>> ExecuteQuerySingleTAsync(ISingletonLogger<LogModel> singleLog, string logStep, 
+            ISqlServerContext sqlServerContext, string query, object? parameters)
         {
             var baseLog = await singleLog.GetBaseLogAsync();
             var sublog = new SubLogDatabase();
@@ -72,7 +73,8 @@ namespace Observer.Data
         /// <param name="query">string query.</param>
         /// <param name="parameters">representation of parameter, object ir a struct data.</param>
         /// <returns>IResponse with a list</returns>
-        public static async Task<IResponse<List<T>>> ExecuteQueryListTAsync(ISingletonLogger<LogModel> singleLog, string logStep, ISqlServerContext sqlServerContext, string query, object? parameters)
+        public static async Task<IResponse<List<T>>> ExecuteQueryListTAsync(ISingletonLogger<LogModel> singleLog, string logStep, 
+            ISqlServerContext sqlServerContext, string query, object? parameters)
         {
             var baseLog = await singleLog.GetBaseLogAsync();
             var sublog = new SubLog();
