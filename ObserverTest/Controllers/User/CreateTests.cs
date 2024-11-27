@@ -1,3 +1,4 @@
+using System.Net;
 using Moq;
 using Observer.Controllers;
 using Observer.Data.Entities;
@@ -5,52 +6,15 @@ using Observer.Domain.Interfaces;
 using Observer.Domain.Models.LogModels;
 using Observer.Domain.Models.Requests;
 using Observer.Domain.Models.Responses;
-using ObserverTest.Data;
+using ObserverApiTest.Data;
 using SingleLog.Interfaces;
-using System.Net;
 
-namespace ObserverTest
+namespace Controllers.User
 {
-    public class UserControllerTests
+    public class CreateTests
     {
         [Fact]
-        public void Will_receive_dependeces_into_constructor_successful()
-        {
-            // Arrange
-            var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
-
-            // Act
-            var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
-
-            // Assert
-            Assert.NotNull(controller);
-        }
-
-        [Fact]
-        public void Will_receive_userService_dependece_null_constructor_and_throw_exception()
-        {
-            // Arrange
-            var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
-
-            // Act and Assert
-            Assert.Throws<ArgumentNullException>(() => new UserController(null!, singleLogMock.Object));
-        }
-
-        [Fact]
-        public void Will_receive_singleLog_dependece_null_constructor_and_throw_exception()
-        {
-            // Arrange
-            var userServiceMock = new Mock<IUserServices>();
-            var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
-
-            // Act and Assert
-            Assert.Throws<ArgumentNullException>(() => new UserController(userServiceMock.Object, null!));
-        }
-
-        [Fact]
-        public async Task Will_create_new_user_successful()
+        public async Task Deve_criar_novo_usuario_com_sucesso()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
@@ -80,7 +44,7 @@ namespace ObserverTest
         }
 
         [Fact]
-        public async Task Will_create_new_user_and_got_password_validation_error()
+        public async Task Deve_tentar_criar_usuario_e_receber_erro_de_validacao_de_senha()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
@@ -102,7 +66,7 @@ namespace ObserverTest
 
             // Assert
             var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
-            
+
             Assert.NotNull(values);
             Assert.Null(values.Data);
             Assert.Equal(HttpStatusCode.BadRequest, values.ResponseCode);
@@ -110,7 +74,7 @@ namespace ObserverTest
         }
 
         [Fact]
-        public async Task Will_create_new_user_and_got_login_validation_error()
+        public async Task Deve_tentar_criar_usuario_e_receber_erro_de_validacao_de_login()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
@@ -140,7 +104,7 @@ namespace ObserverTest
         }
 
         [Fact]
-        public async Task Will_create_new_user_and_got_bithdate_validation_error()
+        public async Task Deve_tentar_criar_usuario_e_receber_erro_de_validacao_de_data_de_aniversario()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
@@ -170,7 +134,7 @@ namespace ObserverTest
         }
 
         [Fact]
-        public async Task Will_create_new_user_and_got_lastname_validation_error()
+        public async Task Deve_tentar_criar_usuario_e_receber_erro_de_validacao_de_sobrenome()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
@@ -200,7 +164,7 @@ namespace ObserverTest
         }
 
         [Fact]
-        public async Task Will_create_new_user_and_got_name_validation_error()
+        public async Task Deve_tentar_criar_usuario_e_receber_erro_de_validacao_de_nome()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
@@ -229,16 +193,17 @@ namespace ObserverTest
             Assert.Equal("Informe um nome válido para o usuário.", values.Details);
         }
 
-        [Theory]
-        [InlineData(1)]
-        public async Task Will_retrieve_existent_user_successful(int userId)
+        [Fact]
+        public async Task Deve_tentar_criar_usuario_e_receber_erro_interno_do_servico()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
             var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
-            userServiceMock.Setup(mock => mock.RetrieveUser(It.IsAny<int>()))
-                .ReturnsAsync(FakeData.SuccessRetrieveUserResponse(FakeData.UsefulUserRequest()));
+            var userRequest = FakeData.UsefulUserRequest();
+
+            userServiceMock.Setup(mock => mock.CreateUser(It.IsAny<UserRequest>()))
+                .ReturnsAsync(FakeData.InternalServerErrorUserResponse());
 
             singleLogMock.Setup(mock => mock.WriteLogAsync(It.IsAny<LogModel>()));
             singleLogMock.Setup(mock => mock.CreateBaseLogAsync()).ReturnsAsync(new LogModel());
@@ -247,40 +212,44 @@ namespace ObserverTest
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.UserDetails(userId);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
             var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
-            Assert.IsType<Users>(values.Data!);
-            Assert.Equal(1, ((Users)values.Data!).Id);
-            Assert.Equal(HttpStatusCode.OK, values.ResponseCode);
+            Assert.Equal(HttpStatusCode.InternalServerError, values.ResponseCode);
+            Assert.Equal("Ocorreu um erro durante a execução da requisição.", values.Details);
+
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        public async Task Will_try_retrieve_existent_user_with_id_zero_or_negatrive(int userId)
+        [Fact]
+        public async Task Deve_tentar_criar_usuario_e_receber_excecao_do_servico()
         {
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
             var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
+            var userRequest = FakeData.UsefulUserRequest();
+
+            userServiceMock.Setup(mock => mock.CreateUser(It.IsAny<UserRequest>())).Throws<Exception>();
+
+            singleLogMock.Setup(mock => mock.WriteLogAsync(It.IsAny<LogModel>()));
             singleLogMock.Setup(mock => mock.CreateBaseLogAsync()).ReturnsAsync(new LogModel());
             singleLogMock.Setup(mock => mock.GetBaseLogAsync()).ReturnsAsync(new LogModel());
 
             var controller = new UserController(userServiceMock.Object, singleLogMock.Object);
 
             // Act
-            var result = await controller.UserDetails(userId);
+            var result = await controller.UserCreate(userRequest);
 
             // Assert
             var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
-            Assert.Equal("Informe um 'userId' válido para a requisição.", values.Details);
-            Assert.Equal(HttpStatusCode.BadRequest, values.ResponseCode);
+            Assert.Equal(HttpStatusCode.InternalServerError, values.ResponseCode);
+            Assert.Equal("Ocorreu um erro durante a execução da requisição.", values.Details);
+
         }
     }
 }

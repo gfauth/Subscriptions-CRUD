@@ -1,6 +1,6 @@
 ﻿namespace Observer.Domain.ResponsesEnvelope
 {
-    internal class ResponseError<T> : IResponse<T>
+    public class ResponseError<T> : IResponse<T>
     {
         public bool IsSuccess { get; } = false;
 
