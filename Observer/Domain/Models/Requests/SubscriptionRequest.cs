@@ -9,6 +9,12 @@ namespace Observer.Domain.Models.Requests
     /// </summary>
     public record SubscriptionRequest
     {
+        public SubscriptionRequest(int productId, int userId)
+        {
+            ProductId = productId;
+            UserId = userId;
+        }
+
         /// <summary>
         /// Related Product identification.
         /// </summary>
@@ -27,7 +33,7 @@ namespace Observer.Domain.Models.Requests
         /// <returns>Object ResponseEnvelope.</returns>
         public ResponseEnvelope IsValid()
         {
-            if (ProductId >= 0 || UserId <= 0)
+            if (ProductId <= 0 || UserId <= 0)
                 return SubscriptionResponseErrors.SubscriptionValidationErrorMessage("Informe um productId ou userId válido para a subscrição.");
 
             return new ResponseEnvelope(HttpStatusCode.Continue);

@@ -36,6 +36,8 @@ namespace ObserverApiTest.Data
         internal static ProductRequest StockProductRequest() => new ProductRequest("New Toy", "Blevers toy blevers", -15, "Toys");
 
         internal static ProductRequest CategoryProductRequest() => new ProductRequest("New Toy", "Blevers toy blevers", 15, "2");
+        
+        internal static SubscriptionRequest UsefulSubscriptionRequest() => new SubscriptionRequest(1, 1);
 
         internal static IResponse<ResponseEnvelope> SuccessCreateUserResponse(UserRequest user) =>
             new ResponseOk<ResponseEnvelope>(
@@ -79,6 +81,21 @@ namespace ObserverApiTest.Data
         internal static IResponse<ResponseEnvelope> SuccessDeleteProductResponse(int productId) =>
             new ResponseOk<ResponseEnvelope>(new ResponseEnvelope(HttpStatusCode.OK, $"Produto {productId} foi deletado com sucesso."!));
 
+        internal static IResponse<ResponseEnvelope> SuccessCreateSubscriptionResponse(int subscriptionId, SubscriptionRequest subscriptionRequest) =>
+            new ResponseOk<ResponseEnvelope>(
+                new ResponseEnvelope(HttpStatusCode.Created, $"Subscrição {subscriptionId} criada com sucesso."!,
+                    new Subscriptions(subscriptionId, subscriptionRequest))
+            );
+
+        internal static IResponse<ResponseEnvelope> SuccessRetrieveSubscriptionResponse(SubscriptionRequest subscription) =>
+            new ResponseOk<ResponseEnvelope>(
+                new ResponseEnvelope(HttpStatusCode.OK, "Subscrição recuperada com sucesso."!,
+                    new Subscriptions(1, subscription))
+            );
+
+        internal static IResponse<ResponseEnvelope> SuccessDeleteSubscriptionResponse(int subscriptionId) =>
+            new ResponseOk<ResponseEnvelope>(new ResponseEnvelope(HttpStatusCode.OK, $"Subscrição {subscriptionId} foi deletada com sucesso."!));
+
         internal static IResponse<ResponseEnvelope> InternalServerErrorUserResponse() =>
             new ResponseError<ResponseEnvelope>(UserResponseErrors.InternalServerError);
 
@@ -90,5 +107,11 @@ namespace ObserverApiTest.Data
 
         internal static IResponse<ResponseEnvelope> NotFoundErrorProductResponse() =>
             new ResponseError<ResponseEnvelope>(ProductResponseErrors.ProductNotFound);
+
+        internal static IResponse<ResponseEnvelope> InternalServerErrorSubscriptionResponse() =>
+            new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.InternalServerError);
+
+        internal static IResponse<ResponseEnvelope> NotFoundErrorSubscriptionResponse() =>
+            new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.SubscriptionNotFound);
     }
 }

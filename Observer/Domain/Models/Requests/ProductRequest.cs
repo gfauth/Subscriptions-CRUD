@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net;
+using Newtonsoft.Json;
 using Observer.Domain.Models.Errors;
 using Observer.Domain.Models.Responses;
 using Observer.Domain.Validators;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Observer.Domain.Models.Requests
 {
