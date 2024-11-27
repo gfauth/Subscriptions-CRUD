@@ -1,5 +1,6 @@
 using Moq;
 using Observer.Controllers;
+using Observer.Data.Entities;
 using Observer.Domain.Interfaces;
 using Observer.Domain.Models.LogModels;
 using Observer.Domain.Models.Requests;
@@ -70,10 +71,12 @@ namespace ObserverTest
             var result = await controller.UserCreate(userRequest);
 
             // Assert
-            Assert.NotNull(result.Value);
-            Assert.IsType<UsersEnvelope>(result.Value.Data!);
-            Assert.Equal(1, ((UsersEnvelope)result.Value.Data!).Id);
-            Assert.Equal(HttpStatusCode.Created, result.Value.ResponseCode);
+            var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
+
+            Assert.NotNull(values);
+            Assert.IsType<Users>(values.Data!);
+            Assert.Equal(1, ((Users)values.Data!).Id);
+            Assert.Equal(HttpStatusCode.Created, values.ResponseCode);
         }
 
         [Fact]
@@ -99,11 +102,11 @@ namespace ObserverTest
 
             // Assert
             var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
-
+            
             Assert.NotNull(values);
             Assert.Null(values.Data);
             Assert.Equal(HttpStatusCode.BadRequest, values.ResponseCode);
-            Assert.Equal("Password precisa conter ao menos 8 dígitos para o usuário.", values.Details);
+            Assert.Equal("Password precisa conter ao menos 8 dígitos, conter números e caracteres especiais para o usuário.", values.Details);
         }
 
         [Fact]
@@ -235,7 +238,7 @@ namespace ObserverTest
             var singleLogMock = new Mock<ISingletonLogger<LogModel>>();
 
             userServiceMock.Setup(mock => mock.RetrieveUser(It.IsAny<int>()))
-                .ReturnsAsync(FakeData.SuccessCreateUserResponse(FakeData.UsefulUserRequest()));
+                .ReturnsAsync(FakeData.SuccessRetrieveUserResponse(FakeData.UsefulUserRequest()));
 
             singleLogMock.Setup(mock => mock.WriteLogAsync(It.IsAny<LogModel>()));
             singleLogMock.Setup(mock => mock.CreateBaseLogAsync()).ReturnsAsync(new LogModel());
@@ -250,8 +253,8 @@ namespace ObserverTest
             var values = (ResponseEnvelope)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
 
             Assert.NotNull(values);
-            Assert.IsType<UsersEnvelope>(values.Data!);
-            Assert.Equal(1, ((UsersEnvelope)values.Data!).Id);
+            Assert.IsType<Users>(values.Data!);
+            Assert.Equal(1, ((Users)values.Data!).Id);
             Assert.Equal(HttpStatusCode.OK, values.ResponseCode);
         }
 
