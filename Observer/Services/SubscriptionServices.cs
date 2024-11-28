@@ -109,33 +109,5 @@ namespace Observer.Services
                 sublog.StopCronometer();
             }
         }
-
-        public async Task<IResponse<ResponseEnvelope>> UpdateSubscription(int subscriptionId, SubscriptionRequest subscription)
-        {
-            var baseLog = await _singleLog.GetBaseLogAsync();
-            var sublog = new SubLog();
-
-            await baseLog.AddStepAsync(LogSteps.SUBSCRIPTION_SERVICE_UPDATE_SUBSCRIPTION_PROCESSING, sublog);
-            sublog.StartCronometer();
-
-            try
-            {
-                Subscriptions subscriptionData = new Subscriptions(subscriptionId, subscription);
-
-                var result = await _subscriptionRepository.UpdateSubscription(subscriptionData);
-
-                if (result is null || !result.IsSuccess)
-                    return new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.SubscriptionNotFound);
-
-                var mapper = _mapperConfiguration.CreateMapper();
-                var envelope = new ResponseEnvelope(HttpStatusCode.OK, $"Dados da subscrição {subscriptionId} foram alterados com sucesso.", mapper.Map<SubscriptionsEnvelope>(subscriptionData));
-
-                return new ResponseOk<ResponseEnvelope>(envelope);
-            }
-            finally
-            {
-                sublog.StopCronometer();
-            }
-        }
     }
 }

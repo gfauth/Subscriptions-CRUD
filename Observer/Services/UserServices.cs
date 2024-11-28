@@ -30,8 +30,8 @@ namespace Observer.Services
         /// <param name="singleLog">Service class of log based on ISingleLog.</param>
         public UserServices(IUserRepository userRepository, ISingletonLogger<LogModel> singleLog)
         {
-            _userRepository = userRepository;
-            _singleLog = singleLog;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _singleLog = singleLog ?? throw new ArgumentNullException(nameof(singleLog));
 
             _mapperConfiguration = new MapperConfiguration(config => { config.CreateMap<Users, UsersEnvelope>(); });
         }

@@ -120,11 +120,24 @@ namespace ObserverApiTest.Data
             new ResponseOk<Subscriptions>(new Subscriptions(1, subscriptionRequest));
 
         internal static IResponse<Subscriptions> SuccessRetrieveSubscriptionServiceResponse() =>
-            new ResponseOk<Subscriptions>(new Subscriptions(1, new Subscriptions(1, new SubscriptionRequest(1, 1))));
+            new ResponseOk<Subscriptions>(new Subscriptions(1, new SubscriptionRequest(1, 1)));
 
         internal static IResponse<Subscriptions> NoDataFoundCreateSubscriptionServiceResponse() => new ResponseError<Subscriptions>("No data found.");
 
         internal static IResponse<Subscriptions> NotFoundRetrieveSubscriptionServiceResponse() => 
             new ResponseError<Subscriptions>("Nenhuma subscrição encontrada. O identificador informado não resultou em dados nesta ação.");
+
+
+
+        internal static IResponse<Products> SuccessCreateProductServiceResponse(ProductRequest productRequest) =>
+            new ResponseOk<Products>(new Products(1, productRequest));
+
+        internal static IResponse<Products> SuccessRetrieveProductServiceResponse() =>
+            new ResponseOk<Products>(new Products());
+
+        internal static IResponse<Products> NoDataFoundCreateProductServiceResponse() => new ResponseError<Products>("No data found.");
+
+        internal static IResponse<Products> NotFoundRetrieveProductServiceResponse() =>
+            new ResponseError<Products>("Nenhum produto encontrado. O identificador informado não resultou em dados nesta ação.");
     }
 }

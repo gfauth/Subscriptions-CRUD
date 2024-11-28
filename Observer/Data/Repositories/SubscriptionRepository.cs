@@ -53,15 +53,6 @@ namespace Observer.Data.Repositories
             _sqlServerContext, QueryData.SelectOneSubscriptions, null);
 
         /// <summary>
-        /// Update data in existent into Products table.
-        /// </summary>
-        /// <param name="subscriptionData">Object Products</param>
-        /// <returns></returns>
-        public async Task<IResponse<bool>> UpdateSubscription(Subscriptions subscriptionData) =>
-            await QueryRunner<bool>.ExecuteQuerySingleTAsync(_singleLog, LogSteps.SUBSCRIPTION_DATABASE_UPDATE_DATA,
-            _sqlServerContext, QueryData.UpdateSubscriptions, subscriptionData);
-
-        /// <summary>
         /// Delete data existent into Products table.
         /// </summary>
         /// <param name="subscriptionId">Products identification</param>

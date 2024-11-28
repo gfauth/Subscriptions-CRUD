@@ -67,7 +67,7 @@ namespace Services.Subscription
         }
 
         [Fact]
-        public async void Deve_tentar_criar_nova_subscricao_e_recber_excecao_do_banco_de_dados()
+        public async void Deve_tentar_criar_nova_subscricao_e_receber_excecao_do_banco_de_dados()
         {
             // Arrange
             var subscriptionRepositoryMock = new Mock<ISubscriptionRepository>();
