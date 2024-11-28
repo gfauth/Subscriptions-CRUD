@@ -8,10 +8,10 @@ using SingleLog.Interfaces;
 
 namespace Observer.Data.Repositories
 {
-    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Repository for entity Subscriptions.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class SubscriptionRepository : ISubscriptionRepository
     {
         private readonly ISqlServerContext _sqlServerContext;

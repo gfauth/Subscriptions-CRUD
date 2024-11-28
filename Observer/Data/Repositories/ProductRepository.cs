@@ -8,10 +8,10 @@ using SingleLog.Interfaces;
 
 namespace Observer.Data.Repositories
 {
-    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Repository for entity Products.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ProductRepository : IProductRepository
     {
         private readonly ISqlServerContext _sqlServerContext;

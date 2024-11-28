@@ -36,7 +36,7 @@ namespace ObserverApiTest.Data
         internal static ProductRequest StockProductRequest() => new ProductRequest("New Toy", "Blevers toy blevers", -15, "Toys");
 
         internal static ProductRequest CategoryProductRequest() => new ProductRequest("New Toy", "Blevers toy blevers", 15, "2");
-        
+
         internal static SubscriptionRequest UsefulSubscriptionRequest() => new SubscriptionRequest(1, 1);
 
         internal static IResponse<ResponseEnvelope> SuccessCreateUserResponse(UserRequest user) =>
@@ -124,7 +124,7 @@ namespace ObserverApiTest.Data
 
         internal static IResponse<Subscriptions> NoDataFoundCreateSubscriptionServiceResponse() => new ResponseError<Subscriptions>("No data found.");
 
-        internal static IResponse<Subscriptions> NotFoundRetrieveSubscriptionServiceResponse() => 
+        internal static IResponse<Subscriptions> NotFoundRetrieveSubscriptionServiceResponse() =>
             new ResponseError<Subscriptions>("Nenhuma subscrição encontrada. O identificador informado não resultou em dados nesta ação.");
 
 
