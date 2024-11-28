@@ -1,8 +1,8 @@
 ﻿using System.Net;
+using DomainLibrary.Envelopes;
+using DomainLibrary.Interfaces.Repositories;
+using DomainLibrary.Models.LogModels;
 using Moq;
-using Observer.Data.Interfaces;
-using Observer.Domain.Models.LogModels;
-using Observer.Domain.ResponsesEnvelope;
 using Observer.Services;
 using SingleLog.Interfaces;
 

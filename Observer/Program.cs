@@ -1,10 +1,10 @@
+using DatabaseLibrary.Context;
+using DatabaseLibrary.Repositories;
+using DomainLibrary.Interfaces.Repositories;
+using DomainLibrary.Interfaces.Services;
+using DomainLibrary.Models.LogModels;
 using Microsoft.OpenApi.Models;
 using Observer.Constants;
-using Observer.Data.Context;
-using Observer.Data.Interfaces;
-using Observer.Data.Repositories;
-using Observer.Domain.Interfaces;
-using Observer.Domain.Models.LogModels;
 using Observer.Services;
 using SingleLog;
 using SingleLog.Interfaces;
@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Notification API", Version = "v1", Description = SwaggerDocumentation.SwaggerDescription });
@@ -22,13 +23,14 @@ builder.Services.AddSwaggerGen(c =>
 
 //Dependence injection configuration
 
-builder.Services.AddScoped<IUserServices, UserServices>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IProductServices, ProductServices>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
 builder.Services.AddScoped<ISqlServerContext, SqlServerContext>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
 
 builder.Services.AddScoped<ISingletonLogger<LogModel>, SingletonLogger<LogModel>>();
 

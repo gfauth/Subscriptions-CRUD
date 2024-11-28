@@ -1,6 +1,6 @@
-﻿using Moq;
-using Observer.Data.Interfaces;
-using Observer.Domain.Models.LogModels;
+﻿using DomainLibrary.Interfaces.Repositories;
+using DomainLibrary.Models.LogModels;
+using Moq;
 using Observer.Services;
 using SingleLog.Interfaces;
 

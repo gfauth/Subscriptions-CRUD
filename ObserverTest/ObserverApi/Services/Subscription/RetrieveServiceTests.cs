@@ -1,7 +1,7 @@
 ﻿using System.Net;
+using DomainLibrary.Interfaces.Repositories;
+using DomainLibrary.Models.LogModels;
 using Moq;
-using Observer.Data.Interfaces;
-using Observer.Domain.Models.LogModels;
 using Observer.Services;
 using ObserverApiTest.Data;
 using SingleLog.Interfaces;

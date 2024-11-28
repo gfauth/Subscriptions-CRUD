@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Observer.Constants;
-using Observer.Domain.Interfaces;
-using Observer.Domain.Models.Errors;
-using Observer.Domain.Models.LogModels;
-using Observer.Domain.Models.Requests;
-using Observer.Domain.Models.Responses;
+﻿using System.Net;
+using DomainLibrary.Constants;
+using DomainLibrary.Interfaces.Services;
+using DomainLibrary.Models.Errors;
+using DomainLibrary.Models.LogModels;
+using DomainLibrary.Models.Requests;
+using DomainLibrary.Models.Responses;
+using Microsoft.AspNetCore.Mvc;
 using SingleLog.Enums;
 using SingleLog.Interfaces;
 using SingleLog.Models;
-using System.Net;
 
 namespace Observer.Controllers
 {

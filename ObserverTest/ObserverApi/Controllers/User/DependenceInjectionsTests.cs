@@ -1,7 +1,7 @@
+using DomainLibrary.Interfaces.Services;
+using DomainLibrary.Models.LogModels;
 using Moq;
 using Observer.Controllers;
-using Observer.Domain.Interfaces;
-using Observer.Domain.Models.LogModels;
 using SingleLog.Interfaces;
 
 namespace ObserverApi.Controllers.User

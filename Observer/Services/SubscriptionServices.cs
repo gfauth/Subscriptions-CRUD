@@ -1,16 +1,16 @@
-﻿using AutoMapper;
-using Observer.Constants;
-using Observer.Data.Entities;
-using Observer.Data.Interfaces;
-using Observer.Domain.Interfaces;
-using Observer.Domain.Models.Errors;
-using Observer.Domain.Models.LogModels;
-using Observer.Domain.Models.Requests;
-using Observer.Domain.Models.Responses;
-using Observer.Domain.ResponsesEnvelope;
+﻿using System.Net;
+using AutoMapper;
+using DomainLibrary.Constants;
+using DomainLibrary.Entities;
+using DomainLibrary.Envelopes;
+using DomainLibrary.Interfaces.Repositories;
+using DomainLibrary.Interfaces.Services;
+using DomainLibrary.Models.Errors;
+using DomainLibrary.Models.LogModels;
+using DomainLibrary.Models.Requests;
+using DomainLibrary.Models.Responses;
 using SingleLog.Interfaces;
 using SingleLog.Models;
-using System.Net;
 
 namespace Observer.Services
 {

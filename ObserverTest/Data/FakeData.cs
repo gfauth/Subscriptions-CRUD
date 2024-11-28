@@ -1,9 +1,9 @@
-﻿using Observer.Data.Entities;
-using Observer.Domain.Models.Errors;
-using Observer.Domain.Models.Requests;
-using Observer.Domain.Models.Responses;
-using Observer.Domain.ResponsesEnvelope;
-using System.Net;
+﻿using System.Net;
+using DomainLibrary.Entities;
+using DomainLibrary.Envelopes;
+using DomainLibrary.Models.Errors;
+using DomainLibrary.Models.Requests;
+using DomainLibrary.Models.Responses;
 
 namespace ObserverApiTest.Data
 {
