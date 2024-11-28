@@ -1,7 +1,9 @@
-﻿using Observer.Domain.Models.Requests;
+﻿using System.Diagnostics.CodeAnalysis;
+using Observer.Domain.Models.Requests;
 
 namespace Observer.Data.Entities
 {
+    [ExcludeFromCodeCoverage]
     public class Subscriptions
     {
         public int Id { get; private set; }

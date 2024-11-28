@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace SingleLog.Models
 {
+    [ExcludeFromCodeCoverage]
     public class SubLog : IDisposable
     {
         public DateTime ExecutedAt { get; set; }

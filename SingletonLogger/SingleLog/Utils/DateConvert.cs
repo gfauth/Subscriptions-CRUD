@@ -1,5 +1,8 @@
-﻿namespace SingleLog.Utils
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace SingleLog.Utils
 {
+    [ExcludeFromCodeCoverage]
     public static class DateConvert
     {
         public static DateTime ToBrazilianDateTime(this DateTime dateTime) => ConvertToBrazilianDateTimeZone(dateTime).DateTime;

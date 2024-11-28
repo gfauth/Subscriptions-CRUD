@@ -1,7 +1,9 @@
-﻿using Observer.Domain.Models.Requests;
+﻿using System.Diagnostics.CodeAnalysis;
+using Observer.Domain.Models.Requests;
 
 namespace Observer.Data.Entities
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Class of data for table Product into database.
     /// </summary>

@@ -5,7 +5,7 @@ namespace Observer.Domain.Models.Responses
     /// <summary>
     /// Response record for use on UserController.
     /// </summary>
-    public record ResponseEnvelope
+    public class ResponseEnvelope
     {
         /// <summary>
         /// HttpStatusCode who represent the request response and error code.

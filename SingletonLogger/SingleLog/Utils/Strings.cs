@@ -1,7 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace SingleLog.Utils
 {
+    [ExcludeFromCodeCoverage]
     public static partial class Strings
     {
         public static string Clean(string dirtValue)

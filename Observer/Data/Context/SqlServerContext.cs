@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Observer.Data.Interfaces;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Observer.Data.Context
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Context class for connection with SQL Server.
     /// </summary>

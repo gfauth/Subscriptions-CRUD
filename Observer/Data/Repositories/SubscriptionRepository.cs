@@ -1,4 +1,5 @@
-﻿using Observer.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
+using Observer.Constants;
 using Observer.Data.Entities;
 using Observer.Data.Interfaces;
 using Observer.Domain.Models.LogModels;
@@ -7,8 +8,9 @@ using SingleLog.Interfaces;
 
 namespace Observer.Data.Repositories
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
-    /// 
+    /// Repository for entity Subscriptions.
     /// </summary>
     public class SubscriptionRepository : ISubscriptionRepository
     {

@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using NLog;
 using SingleLog.Enums;
 using SingleLog.Utils;
 
 namespace SingleLog
 {
+    [ExcludeFromCodeCoverage]
     public sealed class LoggerManager : IDisposable
     {
         private readonly Logger message;

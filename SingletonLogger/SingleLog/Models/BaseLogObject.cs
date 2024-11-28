@@ -1,10 +1,12 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 using SingleLog.Enums;
 using SingleLog.Utils;
 
 namespace SingleLog.Models
 {
+    [ExcludeFromCodeCoverage]
     public class BaseLogObject : IDisposable
     {
         public string Id { get; set; }

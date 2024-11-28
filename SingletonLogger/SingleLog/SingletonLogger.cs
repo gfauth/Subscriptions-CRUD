@@ -1,9 +1,11 @@
-﻿using SingleLog.Enums;
+﻿using System.Diagnostics.CodeAnalysis;
+using SingleLog.Enums;
 using SingleLog.Interfaces;
 using SingleLog.Models;
 
 namespace SingleLog
 {
+    [ExcludeFromCodeCoverage]
     public sealed class SingletonLogger<Tlog> : ISingletonLogger<Tlog> where Tlog : BaseLogObject
     {
         private readonly LoggerManager _loggerManager;

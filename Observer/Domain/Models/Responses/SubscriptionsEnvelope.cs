@@ -1,6 +1,9 @@
 ﻿namespace Observer.Domain.Models.Responses
 {
-    public class SubscriptionsEnvelope
+    /// <summary>
+    /// Subscription data response envelope.
+    /// </summary>
+    public record SubscriptionsEnvelope
     {
         public int Id { get; private set; }
         public int ProductId { get; private set; }
