@@ -39,13 +39,13 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.SUBSCRIPTION_SERVICE_CREATE_SUBSCRIPTION_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 Subscriptions subscriptionData = new Subscriptions(subscription);
 
                 var result = await _subscriptionRepository.InsertSubscription(subscriptionData);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.CreateSubscriptionError);
@@ -67,11 +67,11 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.SUBSCRIPTION_SERVICE_RETRIEVE_SUBSCRIPTION_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 var result = await _subscriptionRepository.SelectOneSubscription(subscriptionId);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.SubscriptionNotFound);
@@ -93,11 +93,11 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.SUBSCRIPTION_SERVICE_DELETE_SUBSCRIPTION_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 var result = await _subscriptionRepository.DeleteSubscription(subscriptionId);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(SubscriptionResponseErrors.SubscriptionNotFound);

@@ -42,13 +42,13 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.USER_SERVICE_CREATE_USER_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 Users userData = new Users(user);
 
                 var result = await _userRepository.InsertUser(userData);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(UserResponseErrors.CreateUserError);
@@ -70,11 +70,11 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.USER_SERVICE_RETRIEVE_USER_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 var result = await _userRepository.SelectUser(userId);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(UserResponseErrors.UserNotFound);
@@ -96,11 +96,11 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.USER_SERVICE_DELETE_USER_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 var result = await _userRepository.DeleteUser(userId);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(UserResponseErrors.UserNotFound);
@@ -119,13 +119,13 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.USER_SERVICE_UPDATE_USER_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 Users userData = new Users(userId, user);
 
                 var result = await _userRepository.UpdateUser(userData);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(UserResponseErrors.UserNotFound);

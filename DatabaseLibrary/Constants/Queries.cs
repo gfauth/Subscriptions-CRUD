@@ -247,5 +247,14 @@ delete from
     dbo.Subscriptions
 where
     Id = @subscriptionId";
+
+        /// <summary>
+        /// Delete some subscription by id.
+        /// </summary>
+        public const string SelectAllSubscriptions = @"
+select 
+    *
+from
+    dbo.Subscriptions";
     }
 }

@@ -39,13 +39,13 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_CREATE_PRODUCT_PROCESSING, sublog);
-            sublog.StartCronometer();
-
             try
             {
                 Products productData = new Products(product);
 
                 var result = await _productRepository.InsertProduct(productData);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(ProductResponseErrors.CreateProductError);
@@ -67,11 +67,12 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_RETRIEVE_PRODUCT_PROCESSING, sublog);
-            sublog.StartCronometer();
 
             try
             {
                 var result = await _productRepository.SelectProduct(productId);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(ProductResponseErrors.ProductNotFound);
@@ -93,11 +94,12 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_DELETE_PRODUCT_PROCESSING, sublog);
-            sublog.StartCronometer();
 
             try
             {
                 var result = await _productRepository.DeleteProduct(productId);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(ProductResponseErrors.ProductNotFound);
@@ -116,13 +118,14 @@ namespace Observer.Services
             var sublog = new SubLog();
 
             await baseLog.AddStepAsync(LogSteps.PRODUCT_SERVICE_UPDATE_PRODUCT_PROCESSING, sublog);
-            sublog.StartCronometer();
 
             try
             {
                 Products productData = new Products(productId, product);
 
                 var result = await _productRepository.UpdateProduct(productData);
+
+                sublog.StartCronometer();
 
                 if (result is null || !result.IsSuccess)
                     return new ResponseError<ResponseEnvelope>(ProductResponseErrors.ProductNotFound);

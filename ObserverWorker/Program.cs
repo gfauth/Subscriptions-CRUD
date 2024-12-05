@@ -18,5 +18,5 @@ builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
 builder.Services.AddScoped<ISingletonLogger<LogModel>, SingletonLogger<LogModel>>();
 
-var host = builder.Build();
-host.Run();
+builder.Build()
+       .Run();
