@@ -18,5 +18,4 @@ builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
 builder.Services.AddScoped<ISingletonLogger<LogModel>, SingletonLogger<LogModel>>();
 
-builder.Build()
-       .Run();
+builder.Build().Run();
